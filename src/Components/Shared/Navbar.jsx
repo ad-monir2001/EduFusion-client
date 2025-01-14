@@ -50,7 +50,7 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-
+          {/* logo */}
           <Link
             className="flex items-center  font-heading md:text-3xl text-lg font-semibold text-[#EECF75]"
             to="/"
