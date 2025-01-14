@@ -1,0 +1,5 @@
+Background:  Cloud White (#ECF0F1)
+Primary Text:  Midnight Blue (#2C3E50)
+Secondary Text:  Ash Gray (#95A5A6)
+Buttons/Highlights:  Sky Blue (#3498DB)
+Call to Action: Emerald Green (#2ECC71)
