@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { imageUpload, saveUser } from '../utils/utils';
-
+import { useLottie } from 'lottie-react';
+import signInAnimation from '../../public/signin.json';
+import { IoMdArrowBack } from 'react-icons/io';
 const Signup = () => {
   const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
@@ -28,15 +30,31 @@ const Signup = () => {
       console.log(error);
     }
   };
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const options = {
+    animationData: signInAnimation,
+    loop: true,
+  };
+  const { View } = useLottie(options);
   return (
-    <div>
-      Signup
-      <div className="flex">
+    <div className="w-9/12 mx-auto my-5 py-10">
+      <h1 className="font-heading text-center my-3 text-3xl md:text-5xl font-semibold text-[#2C3E50]">
+        {' '}
+        Sign-up here
+      </h1>
+      <button onClick={handleBack} className="font-bold text-3xl">
+        <IoMdArrowBack />
+      </button>
+      <div className="flex flex-col md:flex-row my-9 gap-8 items-center">
         {/* lottie */}
-        <div></div>
+        <div>{View}</div>
         {/* form */}
         <form
-          className="card-body border rounded-lg shadow-sm"
+          className="card-body bg-[#ECF0F1] border rounded-lg shadow-sm"
           onSubmit={handleSubmit}
         >
           {/* Name */}
@@ -93,17 +111,21 @@ const Signup = () => {
           </div>
           {/* role */}
           <div>
-            <label htmlFor="role">Select your Role: </label>
+            <label className="font-heading" htmlFor="role">
+              Select your Role:{' '}
+            </label>
             <select
               name="role"
-              className="select select-bordered w-full max-w-xs"
+              className="select select-bordered w-full max-w-xs font-heading"
             >
               <option value="student">Student</option>
               <option value="admin">Admin</option>
               <option value="tutor">Tutor</option>
             </select>
           </div>
-          <button className="btn">SignUp</button>
+          <button className="btn bg-[#3498DB] text-white font-heading text-xl">
+            Sign Up
+          </button>
         </form>
       </div>
     </div>
