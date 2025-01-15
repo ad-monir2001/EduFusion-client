@@ -1,26 +1,29 @@
 import { useLottie } from 'lottie-react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { RingLoader } from 'react-spinners';
+
 import signInAnimation from '../../public/login.json';
-import { imageUpload, saveUser } from '../utils/utils';
+import { saveUser } from '../utils/utils';
 import { useAuth } from '../hooks/useAuth';
+import LoadingSpinner from '../Components/Shared/LoadingSpinner';
+import toast from 'react-hot-toast';
 const Login = () => {
-  const { signIn, loading, user } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location?.state?.from.pathname || '/';
-  if (loading) return <RingLoader color="#026ba6" />;
-  if (user) return <Navigate to={from} replace={true} />;
-  const handleBack = () => {
-    navigate(-1);
-  };
   // lottie react code
   const options = {
     animationData: signInAnimation,
     loop: true,
   };
   const { View } = useLottie(options);
+  const { signIn, loading, user, signInWithGoogle, signInWithGithub } =
+    useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from.pathname || '/';
+  if (loading) return <LoadingSpinner></LoadingSpinner>;
+  if (user) return <Navigate to={from} replace={true} />;
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,12 +31,37 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    try{
-        await signIn(email, password)
+    try {
+      await signIn(email, password);
 
-        navigate(from, {replace:true})
-    }catch(error){
-        console.log(error);
+      navigate(from, { replace: true });
+      toast.success('Login Successful');
+    } catch (error) {
+      return toast.error(error?.message);
+    }
+  };
+
+  // handle google signin
+  const handleGoogleSignIn = async () => {
+    try {
+      const data = await signInWithGoogle();
+      await saveUser(data?.user);
+      navigate(from, { replace: true });
+      toast.success('Login Successful');
+    } catch (error) {
+      return toast.error(error?.message);
+    }
+  };
+  
+  // handle github signin
+  const handleGithubSignIn = async () => {
+    try {
+      const data = await signInWithGithub();
+      await saveUser(data?.user);
+      navigate(from, { replace: true });
+      toast.success('Login Successful');
+    } catch (error) {
+      return toast.error(error?.message);
     }
   };
   return (
@@ -91,7 +119,10 @@ const Login = () => {
           <p className="mt-4 text-center font-body text-gray-600">
             Or sign in with
           </p>
-          <button className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg bg-gray-50 w-full">
+          <button
+            onClick={handleGoogleSignIn}
+            className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg bg-gray-50 w-full"
+          >
             <span className="mx-2 font-body">Sign in with </span>
             <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
               <path
@@ -112,7 +143,10 @@ const Login = () => {
               />
             </svg>
           </button>
-          <button className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg bg-gray-50 w-full">
+          <button
+            onClick={handleGithubSignIn}
+            className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg bg-gray-50 w-full"
+          >
             <span className="mx-2 font-body">Sign in with </span>
             <img width={25} src="/images/git.svg" alt="" />
           </button>
