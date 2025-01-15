@@ -1,11 +1,11 @@
 import { useLottie } from 'lottie-react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 import signInAnimation from '../../public/login.json';
 import { saveUser } from '../utils/utils';
 import { useAuth } from '../hooks/useAuth';
-import LoadingSpinner from '../Components/Shared/LoadingSpinner';
+
 import toast from 'react-hot-toast';
 const Login = () => {
   // lottie react code
@@ -19,7 +19,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from.pathname || '/';
-  if (loading) return <LoadingSpinner></LoadingSpinner>;
   if (user) return <Navigate to={from} replace={true} />;
   const handleBack = () => {
     navigate(-1);
@@ -31,14 +30,27 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    try {
-      await signIn(email, password);
-
-      navigate(from, { replace: true });
-      toast.success('Login Successful');
-    } catch (error) {
-      return toast.error(error?.message);
-    }
+    signIn(email, password)
+      .then(() => {
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Successfully login.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          text: error.message,
+          title: 'Failed to login.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   // handle google signin
@@ -52,7 +64,7 @@ const Login = () => {
       return toast.error(error?.message);
     }
   };
-  
+
   // handle github signin
   const handleGithubSignIn = async () => {
     try {
