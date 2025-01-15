@@ -46,8 +46,8 @@ const Signup = () => {
         {' '}
         Sign-up here
       </h1>
-      <button onClick={handleBack} className="font-bold text-3xl">
-        <IoMdArrowBack />
+      <button onClick={handleBack} className="text-xl flex items-center text-error">
+        <IoMdArrowBack />Back
       </button>
       <div className="flex flex-col md:flex-row my-9 gap-8 items-center">
         {/* lottie */}
