@@ -1,10 +1,17 @@
 import { useLottie } from 'lottie-react';
 import { IoMdArrowBack } from 'react-icons/io';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { RingLoader } from 'react-spinners';
 import signInAnimation from '../../public/login.json';
 import { imageUpload, saveUser } from '../utils/utils';
+import { useAuth } from '../hooks/useAuth';
 const Login = () => {
+  const { signIn, loading, user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from.pathname || '/';
+  if (loading) return <RingLoader color="#026ba6" />;
+  if (user) return <Navigate to={from} replace={true} />;
   const handleBack = () => {
     navigate(-1);
   };
@@ -20,7 +27,14 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    const role = form.role.value;
+
+    try{
+        await signIn(email, password)
+
+        navigate(from, {replace:true})
+    }catch(error){
+        console.log(error);
+    }
   };
   return (
     <div className="lg:w-9/12 px-3 mx-auto my-5 py-10">

@@ -1,9 +1,9 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
+import { useAuth } from '../../hooks/useAuth';
 
 const Navbar = () => {
-  // const { user, logOut } = useContext(AuthContext);
-  const user = null;
+  const { user, logOut } = useAuth();
   const links = (
     <div className="flex gap-2 lg:flex-row flex-col">
       <li>
@@ -18,6 +18,31 @@ const Navbar = () => {
               Dashboard
             </NavLink>
           </li>
+        </>
+      )}
+      {!user ? (
+        <div className="flex gap-2 flex-col md:hidden">
+          <NavLink
+            className="font-heading text-[#3498DB] border-[#3498DB] text-base font-semibold btn"
+            to="login"
+          >
+            Log-in
+          </NavLink>
+          <NavLink
+            className="font-heading text-base bg-[#3498DB] text-white font-semibold btn"
+            to="signUp"
+          >
+            SignUp
+          </NavLink>
+        </div>
+      ) : (
+        <>
+          <button
+            className="font-heading md:hidden text-base bg-[#ff3600] text-white font-semibold btn"
+            onClick={logOut}
+          >
+            logOut
+          </button>
         </>
       )}
     </div>
@@ -66,9 +91,9 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end ">
           {!user ? (
-            <div className="flex gap-2">
+            <div className="hidden md:flex gap-2">
               <NavLink
                 className="font-heading text-[#3498DB] border-[#3498DB] text-base font-semibold btn"
                 to="login"
@@ -85,20 +110,24 @@ const Navbar = () => {
           ) : (
             <>
               <button
-                className="font-heading text-base bg-[#ff3600] text-white font-semibold btn"
+                className="font-heading hidden md:block text-base bg-[#ff3600] text-white font-semibold btn"
                 onClick={logOut}
               >
                 logOut
               </button>
-              <div className="w-10 rounded-full">
+              <div className="w-10 md:block rounded-full">
                 <Tooltip id="my-tooltip" />
                 <a
                   data-tooltip-id="my-tooltip"
                   data-tooltip-content={user.displayName}
                   data-tooltip-place="top"
-                  className="z-30 font-Audiowide"
+                  className="z-30 font-heading"
                 >
-                  <img alt="User" src={user.photoURL} />
+                  <img
+                    className="w-10 ml-2 border-2 border-red-400 p-1 h-10 rounded-full"
+                    alt="User"
+                    src={user.photoURL}
+                  />
                 </a>
               </div>
             </>
