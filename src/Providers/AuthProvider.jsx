@@ -11,6 +11,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { app } from '../Firebase/firebase.init';
+import axios from 'axios';
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -41,14 +42,14 @@ const AuthProvider = ({ children }) => {
   // signin with google
   const signInWithGoogle = () => {
     setLoading(true);
-    return signInWithPopup(auth,googleProvider)
-  }
+    return signInWithPopup(auth, googleProvider);
+  };
 
   // signin with github
   const signInWithGithub = () => {
     setLoading(true);
-    return signInWithPopup(auth,gitHubProvider)
-  }
+    return signInWithPopup(auth, gitHubProvider);
+  };
 
   // update user information
   const updateUserProfile = (name, photo) => {
@@ -61,8 +62,23 @@ const AuthProvider = ({ children }) => {
   // hold user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      console.log(currentUser);
       setUser(currentUser);
+
+      // jwt token get from server
+      if (currentUser) {
+        // get token
+        const userInfo = { email: currentUser.email };
+        axios
+          .post(`${import.meta.env.VITE_API_BASE_URL}/jwt`, userInfo)
+          .then((res) => {
+            if (res.data.token) {
+              localStorage.setItem('access-token', res.data.token);
+            }
+          });
+      } else {
+        // remove token
+        localStorage.removeItem('access-token');
+      }
 
       setLoading(false);
     });
