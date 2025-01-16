@@ -10,6 +10,10 @@ import BookedSession from '../Components/Dashboard/Student/BookedSession';
 import CreateNote from '../Components/Dashboard/Student/CreateNote';
 import PersonalNote from '../Components/Dashboard/Student/PersonalNote';
 import StudyMaterial from '../Components/Dashboard/Student/StudyMaterial';
+import AllUsers from '../Components/Dashboard/Admin/AllUsers';
+import AllStudySession from '../Components/Dashboard/Admin/AllStudySession';
+import AllMaterial from '../Components/Dashboard/Admin/AllMaterial';
+import AdminHome from '../Components/Dashboard/Admin/AdminHome';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +37,7 @@ export const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      // students routes
       {
         path: 'booked-session',
         element: <BookedSession></BookedSession>,
@@ -48,6 +53,28 @@ export const router = createBrowserRouter([
       {
         path: 'study-material',
         element: <StudyMaterial></StudyMaterial>,
+      },
+
+      // admin routes
+      {
+        index: true,
+        element: <AdminHome></AdminHome>,
+      },
+      {
+        path: 'admin-home',
+        element: <AdminHome></AdminHome>,
+      },
+      {
+        path: 'all-users',
+        element: <AllUsers></AllUsers>,
+      },
+      {
+        path: 'allStudy-session',
+        element: <AllStudySession></AllStudySession>,
+      },
+      {
+        path: 'all-material',
+        element: <AllMaterial></AllMaterial>,
       },
     ],
   },
