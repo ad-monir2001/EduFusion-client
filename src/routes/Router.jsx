@@ -6,6 +6,10 @@ import Signup from '../pages/Signup';
 import Login from '../pages/Login';
 import DashboardLayout from '../layouts/DashboardLayout';
 import PrivateRoutes from './PrivateRoutes';
+import BookedSession from '../Components/Dashboard/Student/BookedSession';
+import CreateNote from '../Components/Dashboard/Student/CreateNote';
+import PersonalNote from '../Components/Dashboard/Student/PersonalNote';
+import StudyMaterial from '../Components/Dashboard/Student/StudyMaterial';
 
 export const router = createBrowserRouter([
   {
@@ -28,5 +32,23 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoutes>
     ),
+    children: [
+      {
+        path: 'booked-session',
+        element: <BookedSession></BookedSession>,
+      },
+      {
+        path: 'create-note',
+        element: <CreateNote></CreateNote>,
+      },
+      {
+        path: 'personal-note',
+        element: <PersonalNote></PersonalNote>,
+      },
+      {
+        path: 'study-material',
+        element: <StudyMaterial></StudyMaterial>,
+      },
+    ],
   },
 ]);

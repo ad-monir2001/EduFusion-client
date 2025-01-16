@@ -3,7 +3,7 @@ import { FaHome } from 'react-icons/fa';
 import { LuNotebookPen } from 'react-icons/lu';
 import { IoBookmarksOutline } from 'react-icons/io5';
 import { MdEditNote } from 'react-icons/md';
-import { GiBookshelf } from "react-icons/gi";
+import { GiBookshelf } from 'react-icons/gi';
 const DashboardLayout = () => {
   return (
     <div className="relative min-h-screen md:flex bg-white">
@@ -15,28 +15,28 @@ const DashboardLayout = () => {
         </NavLink>
         <NavLink
           className="flex items-center gap-1 font-heading"
-          to="/booked-session"
+          to="/dashboard/booked-session"
         >
           <IoBookmarksOutline />
           Booked Session
         </NavLink>
         <NavLink
           className="flex items-center gap-1 font-heading"
-          to="/create-note"
+          to="/dashboard/create-note"
         >
           <LuNotebookPen />
           Create Note
         </NavLink>
         <NavLink
           className="flex items-center gap-1 font-heading"
-          to="/personal-note"
+          to="/dashboard/personal-note"
         >
           <MdEditNote />
           Personal Note
         </NavLink>
         <NavLink
           className="flex items-center gap-1 font-heading"
-          to="/study-material"
+          to="/dashboard/study-material"
         >
           <GiBookshelf />
           Study material
