@@ -1,8 +1,24 @@
+import { useEffect, useState } from 'react';
 import Footer from '../Components/Shared/Footer';
 import Navbar from '../Components/Shared/Navbar';
+import axios from 'axios';
+import TutorCard from '../Components/Cards/TutorCard';
 
 const Home = () => {
   const isRegistrationClosed = false;
+  const [tutors, setTutors ] = useState([])
+  
+    useEffect(()=> {
+      const fetchTutors = async ()=> {
+        try{
+          const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/tutor`)
+          setTutors(response.data)
+        }catch(error){
+          console.log(error);
+        }
+      }
+      fetchTutors()
+    },[])
   return (
     <div>
       <Navbar></Navbar>
@@ -97,7 +113,11 @@ const Home = () => {
             Learn from the Best, Achieve the Greatest
           </p>
         </div>
-        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+          {
+            tutors.map(tutor=> <TutorCard key={tutor._id} tutor={tutor}></TutorCard>)
+          }
+        </div>
       </section>
       {/* Footer section */}
       <Footer></Footer>
