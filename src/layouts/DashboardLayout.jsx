@@ -8,16 +8,21 @@ import { FaUsers } from 'react-icons/fa6';
 import { MdOutlineVideoLibrary } from 'react-icons/md';
 import { LuLogOut } from 'react-icons/lu';
 import { RiHomeGearFill } from 'react-icons/ri';
+import { AiOutlineFolderView } from 'react-icons/ai';
+import { MdCloudUpload } from 'react-icons/md';
+import { IoCreateOutline } from 'react-icons/io5';
 import { useAuth } from '../hooks/useAuth';
+import useRole from '../hooks/useRole';
 const DashboardLayout = () => {
-  const isAdmin = true;
+  const [role] = useRole();
+  console.log(role);
   const { logOut } = useAuth();
   return (
     <div className="relative min-h-screen md:flex bg-white">
       {/* left side component */}
       <div className="bg-[#ECF0F1] p-8 space-y-3 flex flex-col justify-between">
         <div>
-          {isAdmin && (
+          {role === 'admin' && (
             <>
               <NavLink
                 className={({ isActive }) =>
@@ -78,7 +83,7 @@ const DashboardLayout = () => {
               </NavLink>
             </>
           )}
-          {!isAdmin && (
+          {role === 'student' && (
             <>
               <NavLink
                 className={({ isActive }) =>
@@ -149,6 +154,80 @@ const DashboardLayout = () => {
               >
                 <GiBookshelf />
                 Study material
+              </NavLink>
+            </>
+          )}
+          {role === 'tutor' && (
+            <>
+              <NavLink
+                className={({ isActive }) =>
+                  `flex items-center gap-1 font-heading transition-all duration-200
+        ${
+          isActive
+            ? 'bg-white text-blue-600 font-bold px-4 py-2 rounded-lg shadow-md'
+            : 'text-gray-700 hover:bg-white/50 hover:text-blue-500 px-4 py-2 rounded-lg'
+        }`
+                }
+                to="/dashboard/tutor-home"
+              >
+                <FaHome />
+                Home
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `flex items-center gap-1 font-heading transition-all duration-200
+            ${
+              isActive
+                ? 'bg-white text-blue-600 font-bold px-4 py-2 rounded-lg shadow-md'
+                : 'text-gray-700 hover:bg-white/50 hover:text-blue-500 px-4 py-2 rounded-lg'
+            }`
+                }
+                to="/dashboard/create-session"
+              >
+                <IoCreateOutline />
+                Create Study Session
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `flex items-center gap-1 font-heading transition-all duration-200
+            ${
+              isActive
+                ? 'bg-white text-blue-600 font-bold px-4 py-2 rounded-lg shadow-md'
+                : 'text-gray-700 hover:bg-white/50 hover:text-blue-500 px-4 py-2 rounded-lg'
+            }`
+                }
+                to="/dashboard/view-study-session"
+              >
+                <LuNotebookPen />
+                View Study Session
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `flex items-center gap-1 font-heading transition-all duration-200
+            ${
+              isActive
+                ? 'bg-white text-blue-600 font-bold px-4 py-2 rounded-lg shadow-md'
+                : 'text-gray-700 hover:bg-white/50 hover:text-blue-500 px-4 py-2 rounded-lg'
+            }`
+                }
+                to="/dashboard/upload-material"
+              >
+                <MdCloudUpload />
+                Upload materials
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `flex items-center gap-1 font-heading transition-all duration-200
+            ${
+              isActive
+                ? 'bg-white text-blue-600 font-bold px-4 py-2 rounded-lg shadow-md'
+                : 'text-gray-700 hover:bg-white/50 hover:text-blue-500 px-4 py-2 rounded-lg'
+            }`
+                }
+                to="/dashboard/view-all-materials"
+              >
+                <AiOutlineFolderView />
+                View all materials
               </NavLink>
             </>
           )}
