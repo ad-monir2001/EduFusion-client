@@ -4,7 +4,7 @@ import UsersTable from './UsersTable';
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: users = [] } = useQuery({
+  const { data: users = [],refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       const res = await axiosSecure.get('/users');
@@ -15,7 +15,7 @@ const AllUsers = () => {
   return (
     <div>
       All users {users.length}
-      <UsersTable users={users}></UsersTable>
+      <UsersTable users={users} refetch={refetch}></UsersTable>
     </div>
   );
 };
