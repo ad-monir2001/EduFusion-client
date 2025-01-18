@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
@@ -10,7 +10,31 @@ const CreateStudySession = () => {
   const { user } = useAuth();
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [difference, setDifference] = useState('');
   const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    const calculateDifference = () => {
+      const [startHours, startMinutes] = startTime.split(':').map(Number);
+      const [endHours, endMinutes] = endTime.split(':').map(Number);
+
+      const startInMinutes = startHours * 60 + startMinutes;
+      const endInMinutes = endHours * 60 + endMinutes;
+
+      const diffInMinutes = endInMinutes - startInMinutes;
+
+      if (diffInMinutes >= 0) {
+        const hours = Math.floor(diffInMinutes / 60);
+        const minutes = diffInMinutes % 60;
+        setDifference(`${hours} hours and ${minutes} minutes`);
+      } else {
+        setDifference('End time must be after start time.');
+      }
+    };
+    calculateDifference();
+  }, [endTime, startTime]);
 
   const handleCreateSession = async (e) => {
     e.preventDefault();
@@ -162,6 +186,7 @@ const CreateStudySession = () => {
                   <input
                     type="time"
                     name="startTime"
+                    onChange={(e) => setStartTime(e.target.value)}
                     className="w-full px-4 py-3 border rounded-lg bg-gray-50"
                   />
                 </div>
@@ -173,6 +198,7 @@ const CreateStudySession = () => {
                   <input
                     type="time"
                     name="endTime"
+                    onChange={(e) => setEndTime(e.target.value)}
                     className="w-full px-4 py-3 border rounded-lg bg-gray-50"
                   />
                 </div>
@@ -184,7 +210,8 @@ const CreateStudySession = () => {
                   <input
                     type="text"
                     name="duration"
-                    placeholder="0 hours and 0 minutes"
+                    defaultValue={difference}
+                    readOnly
                     className="w-full px-4 py-3 border rounded-lg bg-gray-100"
                   />
                 </div>
