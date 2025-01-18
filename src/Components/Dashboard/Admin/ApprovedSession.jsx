@@ -1,4 +1,4 @@
-const RejectedSession = ({ rejectedSession }) => {
+const ApprovedSession = ({ approvedSession }) => {
   return (
     <div>
       <div className="hidden md:block">
@@ -28,7 +28,7 @@ const RejectedSession = ({ rejectedSession }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {rejectedSession.map((session) => (
+              {approvedSession.map((session) => (
                 <tr
                   key={session._id}
                   className="transition-colors duration-200 hover:bg-gray-50"
@@ -55,14 +55,19 @@ const RejectedSession = ({ rejectedSession }) => {
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                    <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                       {session.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span className="font-semibold text-red-500 bg-red-200 p-1 rounded-xl text-sm">
-                      Already Rejected
-                    </span>
+                  <div className="flex flex-col gap-3">
+                      <button className="bg-green-200 text-green-600 font-semibold p-1 rounded-xl">
+                        Update
+                      </button>
+                      <button className="bg-red-200 text-red-600 p-1 rounded-xl font-semibold">
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -74,4 +79,4 @@ const RejectedSession = ({ rejectedSession }) => {
   );
 };
 
-export default RejectedSession;
+export default ApprovedSession;

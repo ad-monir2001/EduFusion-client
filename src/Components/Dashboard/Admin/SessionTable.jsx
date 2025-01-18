@@ -1,4 +1,8 @@
-const SessionTable = ({ pendingSession }) => {
+import Swal from 'sweetalert2';
+const SessionTable = ({ pendingSession, refetch }) => {
+  const handleDelete = (id) => {
+    console.log(id);
+  }
   return (
     <div>
       <div className="hidden md:block">
@@ -55,12 +59,19 @@ const SessionTable = ({ pendingSession }) => {
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                       {session.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    update
+                    <div className="flex flex-col gap-3">
+                      <button className="bg-green-200 text-green-600 font-semibold p-1 rounded-xl">
+                        Update
+                      </button>
+                      <button onClick={()=> handleDelete(session._id)} className="bg-red-200 text-red-600 p-1 rounded-xl font-semibold">
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

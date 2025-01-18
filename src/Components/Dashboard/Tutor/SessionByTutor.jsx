@@ -46,7 +46,7 @@ const SessionByTutor = () => {
         // Session cards
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {sessions.map((session) => (
-            <SessionCard key={session._id} session={session} />
+            <SessionCard key={session._id} session={session}/>
           ))}
         </div>
       )}

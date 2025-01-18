@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import SessionTable from './SessionTable';
 import RejectedSession from './RejectedSession';
+import ApprovedSession from './ApprovedSession';
 const AllStudySession = () => {
   const axiosSecure = useAxiosSecure();
   const {
@@ -20,8 +21,12 @@ const AllStudySession = () => {
   const pendingSessions = sessions.filter(
     (session) => session.status === 'pending'
   );
-  const rejectedSessions = sessions.filter(session => session.status === 'rejected')
-  console.log(rejectedSessions);
+  const rejectedSessions = sessions.filter(
+    (session) => session.status === 'rejected'
+  );
+  const approvedSessions = sessions.filter(
+    (session) => session.status === 'approved'
+  );
   return (
     <div>
       {/* heading */}
@@ -37,29 +42,49 @@ const AllStudySession = () => {
           All Study Session: {sessions.length}
         </h3>
       </div>
+
       {/* pending sessions */}
       <div>
-        <h1 className="font-heading text-lg">
+        <h1 className="font-heading text-lg my-2">
           Pending Study Session:{' '}
           <span className="bg-yellow-400 rounded-full p-1">
             {pendingSessions.length}
           </span>{' '}
         </h1>
         <div>
-          <SessionTable pendingSession={pendingSessions}></SessionTable>
+          <SessionTable
+            refetch={refetch}
+            pendingSession={pendingSessions}
+          ></SessionTable>
+        </div>
+      </div>
+
+      {/* Approved sessions */}
+      <div className="my-14">
+        <h1 className="font-heading text-lg my-2">
+          Approved Study Session:{' '}
+          <span className="bg-yellow-400 rounded-full p-1">
+            {approvedSessions.length}
+          </span>{' '}
+        </h1>
+        <div>
+          <ApprovedSession
+            refetch={refetch}
+            approvedSession={approvedSessions}
+          ></ApprovedSession>
         </div>
       </div>
 
       {/* rejected sessions */}
-      <div className='my-14'>
-        <h1 className="font-heading text-lg">
+      <div className="my-14">
+        <h1 className="font-heading text-lg py-2">
           Rejected Study Session:{' '}
           <span className="bg-yellow-400 rounded-full p-1">
             {rejectedSessions.length}
           </span>{' '}
         </h1>
         <div>
-          {/* <RejectedSession rejectedSession={rejectedSessions}></RejectedSession> */}
+          <RejectedSession rejectedSession={rejectedSessions}></RejectedSession>
         </div>
       </div>
     </div>
