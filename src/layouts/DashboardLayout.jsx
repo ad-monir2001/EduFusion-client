@@ -94,10 +94,10 @@ const DashboardLayout = () => {
             : 'text-gray-700 hover:bg-white/50 hover:text-blue-500 px-4 py-2 rounded-lg'
         }`
                 }
-                to="/"
+                to="/dashboard/student-home"
               >
                 <FaHome />
-                Home
+                Student Home
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
@@ -171,7 +171,7 @@ const DashboardLayout = () => {
                 to="/dashboard/tutor-home"
               >
                 <FaHome />
-                Home
+                Tutor Home
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
@@ -255,7 +255,7 @@ const DashboardLayout = () => {
         </div>
       </div>
       {/* Right side component */}
-      <div className="flex-1 md:ml-64">
+      <div className="flex-1 md:ml-20">
         <div className="p-4">
           <Outlet></Outlet>
         </div>

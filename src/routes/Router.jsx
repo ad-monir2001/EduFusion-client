@@ -14,6 +14,12 @@ import AllUsers from '../Components/Dashboard/Admin/AllUsers';
 import AllStudySession from '../Components/Dashboard/Admin/AllStudySession';
 import AllMaterial from '../Components/Dashboard/Admin/AllMaterial';
 import AdminHome from '../Components/Dashboard/Admin/AdminHome';
+import StudentHome from '../Components/Dashboard/Student/StudentHome';
+import TutorHome from '../Components/Dashboard/Tutor/TutorHome';
+import CreateStudySession from '../Components/Dashboard/Tutor/CreateStudySession';
+import SessionByTutor from '../Components/Dashboard/Tutor/SessionByTutor';
+import UploadMaterials from '../Components/Dashboard/Tutor/UploadMaterials';
+import ViewAllMaterials from '../Components/Dashboard/Tutor/ViewAllMaterials';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +44,10 @@ export const router = createBrowserRouter([
     ),
     children: [
       // students routes
+      {
+        path: 'student-home',
+        element: <StudentHome></StudentHome>,
+      },
       {
         path: 'booked-session',
         element: <BookedSession></BookedSession>,
@@ -75,6 +85,28 @@ export const router = createBrowserRouter([
       {
         path: 'all-material',
         element: <AllMaterial></AllMaterial>,
+      },
+
+      // tutor routes
+      {
+        path: 'tutor-home',
+        element: <TutorHome></TutorHome>,
+      },
+      {
+        path: 'create-session',
+        element: <CreateStudySession></CreateStudySession>,
+      },
+      {
+        path: 'view-study-session',
+        element: <SessionByTutor></SessionByTutor>,
+      },
+      {
+        path: 'upload-material',
+        element: <UploadMaterials></UploadMaterials>,
+      },
+      {
+        path: 'view-all-materials',
+        element: <ViewAllMaterials></ViewAllMaterials>,
       },
     ],
   },

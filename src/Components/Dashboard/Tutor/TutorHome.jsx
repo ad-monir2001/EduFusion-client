@@ -1,7 +1,7 @@
 import { useAuth } from '../../../hooks/useAuth';
 import useRole from '../../../hooks/useRole';
 
-const AdminHome = () => {
+const TutorHome = () => {
   const { user } = useAuth();
   const [role] = useRole();
   return (
@@ -34,4 +34,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default TutorHome;

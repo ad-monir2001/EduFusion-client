@@ -3,7 +3,7 @@
 const ViewAllMaterials = () => {
     return (
         <div>
-            view all material            
+            view all material  s          
         </div>
     );
 };
