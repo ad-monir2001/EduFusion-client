@@ -3,6 +3,9 @@ import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import { useState } from 'react';
+import { imageUpload } from '../../../utils/utils';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 const UploadMaterials = () => {
   const [selectedSession, setSelectedSession] = useState([]);
   const [sessionId, setSessionId] = useState(null);
@@ -25,9 +28,26 @@ const UploadMaterials = () => {
     (session) => session.status === 'approved'
   );
 
-  const handleUpdateMaterials = (e) => {
+  const handleUpdateMaterials = async (e) => {
     e.preventDefault();
-    console.log(sessionId);
+    const form = e.target;
+    const googleDriveLink = form.driveLink.value;
+    const image = form.image.files[0];
+    const materialImage = await imageUpload(image);
+
+    const materialData = { googleDriveLink, materialImage, sessionId };
+    console.log(materialData);
+
+    axios
+      .post(`${import.meta.env.VITE_API_BASE_URL}/materials`, materialData)
+      .then((response) => {
+        console.log(response.data);
+        document.getElementById('conform').close();
+        toast.success('Successfully Uploaded your materials');
+      })
+      .catch((error) => {
+        console.log('error to upload material data', error.message);
+      });
   };
 
   // open session modal
@@ -104,23 +124,51 @@ const UploadMaterials = () => {
           <h3 className="font-bold text-xl font-heading text-[#ff3600]">
             Upload Material
           </h3>
-          <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">
+          <div className="flex items-center justify-between border rounded-xl my-2 ">
             {selectedSession.map((session) => (
               <form
                 key={session._id}
                 onSubmit={handleUpdateMaterials}
                 className="card-body"
               >
+                {/* session details */}
+                <div className="space-y-2 text-center">
+                  <p className="font-heading">
+                    Session Name:{' '}
+                    <span className="text-green-400">{session.title}</span>{' '}
+                  </p>
+                  <p className="font-heading">
+                    Session Id:{' '}
+                    <span className="text-green-400">{session._id}</span>{' '}
+                  </p>
+                  <p className="font-heading">
+                    Tutor Email:{' '}
+                    <span className="text-green-400">{session.email}</span>{' '}
+                  </p>
+                </div>
                 <div className="form-control">
-                  <p>sessionid: {session._id}</p>
                   <label className="label">
                     <span className="label-text font-heading">
-                      Is this session free or paid ?
+                      Material Google Drive Link:
                     </span>
                   </label>
                   <input
-                    type="number"
-                    name="fee"
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    className="file-input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-heading">
+                      Material Google Drive Link:
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    name="driveLink"
                     className="input input-bordered"
                     required
                   />
