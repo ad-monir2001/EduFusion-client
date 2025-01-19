@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import UploadMaterialCard from '../../Cards/UploadMaterialCard';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
+import { useState } from 'react';
 const UploadMaterials = () => {
+  const [selectedSession, setSelectedSession] = useState([]);
+  const [sessionId, setSessionId] = useState(null);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
@@ -17,6 +19,25 @@ const UploadMaterials = () => {
       return data;
     },
   });
+
+  // Find the approved sessions only
+  const approvedSessions = sessions.filter(
+    (session) => session.status === 'approved'
+  );
+
+  const handleUpdateMaterials = (e) => {
+    e.preventDefault();
+    console.log(sessionId);
+  };
+
+  // open session modal
+  const openSessionModal = (Id) => {
+    const desiredSession = approvedSessions.filter((data) => data._id === Id);
+    setSelectedSession(desiredSession);
+    setSessionId(Id);
+    document.getElementById('conform').showModal();
+  };
+
   return (
     <div>
       {/* heading */}
@@ -46,11 +67,82 @@ const UploadMaterials = () => {
       ) : (
         // Session cards
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {sessions.map((session) => (
-            <UploadMaterialCard key={session._id} session={session} />
+          {approvedSessions.map((session) => (
+            <div
+              className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden"
+              key={session._id}
+            >
+              <img
+                className="w-full h-48 object-cover"
+                src={session.sessionImage}
+                alt="Course Thumbnail"
+              />
+              <div className="p-4">
+                <div className="flex items-center mb-2">
+                  <span className="bg-green-100 text-green-700 text-sm font-semibold px-2 py-1 rounded">
+                    {session.status}
+                  </span>
+                </div>
+                <h3 className="text-gray-800 font-bold text-xl">
+                  {session.title}
+                </h3>
+                <button
+                  onClick={() => openSessionModal(session._id)}
+                  className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+                >
+                  Upload Material
+                </button>
+              </div>
+            </div>
           ))}
         </div>
       )}
+
+      {/* show the conformation modal */}
+      <dialog id="conform" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box text-center">
+          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+            Upload Material
+          </h3>
+          <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">
+            {selectedSession.map((session) => (
+              <form
+                key={session._id}
+                onSubmit={handleUpdateMaterials}
+                className="card-body"
+              >
+                <div className="form-control">
+                  <p>sessionid: {session._id}</p>
+                  <label className="label">
+                    <span className="label-text font-heading">
+                      Is this session free or paid ?
+                    </span>
+                  </label>
+                  <input
+                    type="number"
+                    name="fee"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <button className="btn btn-success font-heading text-white">
+                  Upload
+                </button>
+              </form>
+            ))}
+          </div>
+          <div className="modal-action">
+            <form
+              method="dialog"
+              className="flex justify-between gap-4 items-center"
+            >
+              <button className="btn btn-error text-white font-heading">
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

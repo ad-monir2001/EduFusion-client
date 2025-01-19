@@ -38,7 +38,7 @@ const SessionTable = ({ pendingSession, refetch }) => {
     });
   };
 
-  // update a session
+  // update a session to approve
   const handleUpdateSession = (e) => {
     e.preventDefault();
     const fee = e.target.fee.value;
