@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import SessionTable from './SessionTable';
 import RejectedSession from './RejectedSession';
@@ -84,7 +83,10 @@ const AllStudySession = () => {
           </span>{' '}
         </h1>
         <div>
-          <RejectedSession rejectedSession={rejectedSessions}></RejectedSession>
+          <RejectedSession
+            refetch={refetch}
+            rejectedSession={rejectedSessions}
+          ></RejectedSession>
         </div>
       </div>
     </div>

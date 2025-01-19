@@ -1,7 +1,7 @@
 const RejectedSession = ({ rejectedSession }) => {
   return (
     <div>
-      <div className="hidden md:block">
+      <div className="">
         <div className="overflow-hidden bg-white shadow-md rounded-lg transition-all duration-300 hover:shadow-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">

@@ -1,7 +1,37 @@
-const ApprovedSession = ({ approvedSession }) => {
+import Swal from 'sweetalert2';
+
+const ApprovedSession = ({ approvedSession, refetch }) => {
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Are you sure to delete this session?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/session/${id}`, {
+          method: 'DELETE',
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'This session has been deleted.',
+                icon: 'success',
+              });
+              refetch();
+            }
+          });
+      }
+    });
+  };
   return (
     <div>
-      <div className="hidden md:block">
+      <div className="">
         <div className="overflow-hidden bg-white shadow-md rounded-lg transition-all duration-300 hover:shadow-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -60,11 +90,14 @@ const ApprovedSession = ({ approvedSession }) => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3">
                       <button className="bg-green-200 text-green-600 font-semibold p-1 rounded-xl">
                         Update
                       </button>
-                      <button className="bg-red-200 text-red-600 p-1 rounded-xl font-semibold">
+                      <button
+                        onClick={() => handleDelete(session._id)}
+                        className="bg-red-200 text-red-600 p-1 rounded-xl font-semibold"
+                      >
                         Delete
                       </button>
                     </div>
