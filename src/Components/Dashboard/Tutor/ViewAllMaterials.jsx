@@ -19,8 +19,6 @@ const ViewAllMaterials = () => {
     },
   });
 
-
-
   // delete a material
   const handleDeleteMaterial = (id) => {
     Swal.fire({
@@ -49,8 +47,7 @@ const ViewAllMaterials = () => {
           });
       }
     });
-
-  }
+  };
 
   return (
     <div>
