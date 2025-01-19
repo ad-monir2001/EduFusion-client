@@ -20,6 +20,9 @@ import CreateStudySession from '../Components/Dashboard/Tutor/CreateStudySession
 import SessionByTutor from '../Components/Dashboard/Tutor/SessionByTutor';
 import UploadMaterials from '../Components/Dashboard/Tutor/UploadMaterials';
 import ViewAllMaterials from '../Components/Dashboard/Tutor/ViewAllMaterials';
+import AdminRoute from './AdminRoute';
+import StudentRoute from './StudentRoute';
+import TutorRoute from './TutorRoute';
 
 export const router = createBrowserRouter([
   {
@@ -46,23 +49,43 @@ export const router = createBrowserRouter([
       // students routes
       {
         path: 'student-home',
-        element: <StudentHome></StudentHome>,
+        element: (
+          <StudentRoute>
+            <StudentHome></StudentHome>
+          </StudentRoute>
+        ),
       },
       {
         path: 'booked-session',
-        element: <BookedSession></BookedSession>,
+        element: (
+          <StudentRoute>
+            <BookedSession></BookedSession>
+          </StudentRoute>
+        ),
       },
       {
         path: 'create-note',
-        element: <CreateNote></CreateNote>,
+        element: (
+          <StudentRoute>
+            <CreateNote></CreateNote>
+          </StudentRoute>
+        ),
       },
       {
         path: 'personal-note',
-        element: <PersonalNote></PersonalNote>,
+        element: (
+          <StudentRoute>
+            <PersonalNote></PersonalNote>
+          </StudentRoute>
+        ),
       },
       {
         path: 'study-material',
-        element: <StudyMaterial></StudyMaterial>,
+        element: (
+          <StudentRoute>
+            <StudyMaterial></StudyMaterial>
+          </StudentRoute>
+        ),
       },
 
       // admin routes
@@ -72,41 +95,77 @@ export const router = createBrowserRouter([
       },
       {
         path: 'admin-home',
-        element: <AdminHome></AdminHome>,
+        element: (
+          <AdminRoute>
+            <AdminHome></AdminHome>
+          </AdminRoute>
+        ),
       },
       {
         path: 'all-users',
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: 'allStudy-session',
-        element: <AllStudySession></AllStudySession>,
+        element: (
+          <AdminRoute>
+            <AllStudySession></AllStudySession>
+          </AdminRoute>
+        ),
       },
       {
         path: 'all-material',
-        element: <AllMaterial></AllMaterial>,
+        element: (
+          <AdminRoute>
+            <AllMaterial></AllMaterial>
+          </AdminRoute>
+        ),
       },
 
       // tutor routes
       {
         path: 'tutor-home',
-        element: <TutorHome></TutorHome>,
+        element: (
+          <TutorRoute>
+            <TutorHome></TutorHome>
+          </TutorRoute>
+        ),
       },
       {
         path: 'create-session',
-        element: <CreateStudySession></CreateStudySession>,
+        element: (
+          <TutorRoute>
+            <CreateStudySession></CreateStudySession>
+          </TutorRoute>
+        ),
       },
       {
         path: 'view-study-session',
-        element: <SessionByTutor></SessionByTutor>,
+        element: (
+          <TutorRoute>
+            <SessionByTutor></SessionByTutor>
+          </TutorRoute>
+        ),
       },
       {
         path: 'upload-material',
-        element: <UploadMaterials></UploadMaterials>,
+        element: (
+          <TutorRoute>
+            <UploadMaterials></UploadMaterials>
+          </TutorRoute>
+        ),
       },
       {
         path: 'view-all-materials',
-        element: <ViewAllMaterials></ViewAllMaterials>,
+        element: (
+          <TutorRoute>
+            <ViewAllMaterials></ViewAllMaterials>
+          </TutorRoute>
+        ),
       },
     ],
   },
