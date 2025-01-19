@@ -36,7 +36,6 @@ const UploadMaterials = () => {
     const materialImage = await imageUpload(image);
 
     const materialData = { googleDriveLink, materialImage, sessionId };
-    console.log(materialData);
 
     axios
       .post(`${import.meta.env.VITE_API_BASE_URL}/materials`, materialData)
