@@ -9,6 +9,7 @@ const SessionTable = ({ pendingSession, refetch }) => {
 
   // rejected a session
   const handleRejected = (id) => {
+    const updatedData = { status: 'rejected' };
     Swal.fire({
       title: 'Are you sure?',
       text: 'Are you sure to rejected this session?',
@@ -16,23 +17,23 @@ const SessionTable = ({ pendingSession, refetch }) => {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Yes, Reject it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        // fetch(`${import.meta.env.VITE_API_BASE_URL}/session/${id}`, {
-        //   method: 'DELETE',
-        // })
-        // .then((res) => res.json())
-        // .then((data) => {
-        //   if (data.deletedCount) {
-        //     Swal.fire({
-        //       title: 'Deleted!',
-        //       text: 'This session has been deleted.',
-        //       icon: 'success',
-        //     });
-        //     refetch();
-        //   }
-        // });
+        axios
+          .patch(
+            `${import.meta.env.VITE_API_BASE_URL}/session/${id}`,
+            updatedData
+          )
+          .then((response) => {
+            console.log(response.data);
+            toast.success('Successfully updated session status.');
+            refetch();
+          })
+          .catch((error) => {
+            console.log('error to update session', error);
+            toast.error('Failed to update session status.');
+          });
       }
     });
   };

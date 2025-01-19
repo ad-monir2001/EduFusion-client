@@ -1,5 +1,8 @@
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
 /* eslint-disable react/prop-types */
-const SessionCard = ({ session }) => {
+const SessionCard = ({ session, refetch }) => {
   const {
     description,
     duration,
@@ -11,9 +14,24 @@ const SessionCard = ({ session }) => {
     title,
     startTime,
     endTime,
+    _id,
   } = session;
 
-  console.log(startTime, endTime);
+  const handleApprovalRequest = (id) => {
+    const updatedData = { status: 'pending' };
+
+    axios
+      .patch(`${import.meta.env.VITE_API_BASE_URL}/session/${id}`, updatedData)
+      .then((response) => {
+        console.log(response.data);
+        toast.success('Successfully Request for another review');
+        refetch();
+      })
+      .catch((error) => {
+        console.log('error to update session', error);
+        toast.error('Failed to update session status.');
+      });
+  };
   return (
     <div className="max-w-2xl mx-auto p-4">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
@@ -76,14 +94,28 @@ const SessionCard = ({ session }) => {
             <div>
               <span
                 className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${
-                  status === 'success'
+                  status === 'approved'
                     ? 'bg-green-100 text-green-600'
-                    : 'bg-yellow-100 text-yellow-600'
+                    : status === 'rejected'
+                    ? 'bg-red-100 text-red-600'
+                    : status === 'pending'
+                    ? 'bg-yellow-100 text-yellow-600'
+                    : 'bg-gray-100 text-gray-600'
                 }`}
               >
                 {status.charAt(0).toUpperCase() + status.slice(1)}
               </span>
             </div>
+          </div>
+          <div className="flex items-center justify-center mt-3">
+            {status === 'rejected' && (
+              <button
+                onClick={() => handleApprovalRequest(_id)}
+                className="bg-green-400 rounded-full p-2 text-white font-semibold font-heading w-full"
+              >
+                New Approval Request
+              </button>
+            )}
           </div>
         </div>
       </div>
