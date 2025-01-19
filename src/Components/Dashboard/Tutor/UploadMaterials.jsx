@@ -31,11 +31,12 @@ const UploadMaterials = () => {
   const handleUpdateMaterials = async (e) => {
     e.preventDefault();
     const form = e.target;
+    const email = user.email;
     const googleDriveLink = form.driveLink.value;
     const image = form.image.files[0];
     const materialImage = await imageUpload(image);
 
-    const materialData = { googleDriveLink, materialImage, sessionId };
+    const materialData = { googleDriveLink, materialImage, sessionId,email };
 
     axios
       .post(`${import.meta.env.VITE_API_BASE_URL}/materials`, materialData)
