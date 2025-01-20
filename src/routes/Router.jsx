@@ -23,6 +23,7 @@ import ViewAllMaterials from '../Components/Dashboard/Tutor/ViewAllMaterials';
 import AdminRoute from './AdminRoute';
 import StudentRoute from './StudentRoute';
 import TutorRoute from './TutorRoute';
+import ViewSessionDetails from '../pages/ViewSessionDetails';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
+      },
+      {
+        path: '/read-more/:id',
+        element: (
+          <PrivateRoutes>
+            <ViewSessionDetails></ViewSessionDetails>
+          </PrivateRoutes>
+        ),
       },
     ],
   },
