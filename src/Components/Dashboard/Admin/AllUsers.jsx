@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import UsersTable from './UsersTable';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const AllUsers = () => {
   const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-
+  // const [users, setUsers] = useState([]);
+  // const [loading, setLoading] = useState(false);
   const axiosSecure = useAxiosSecure();
+
   const { data: users = [], refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
@@ -19,22 +18,20 @@ const AllUsers = () => {
     },
   });
 
+  const { data: searchUsers = [] } = useQuery({
+    queryKey: ['users', searchText],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users?searchText=${searchText}`);
+      return res.data;
+    },
+    enabled: !!searchText,
+    staleTime: 0,
+    retry: 0,
+  });
+  
+  console.log(searchUsers);
   const handleSearch = async (e) => {
-    const text = e.target.value;
-    setSearchText(text);
-    if (!text.trim()) {
-      setSearchText(users);
-      return;
-    }
-    try {
-      setLoading(true);
-      const response = await axios.get(`/search?searchText=${text}`);
-      setSearchResults(response.data);
-    } catch (error) {
-      console.log('search error', error);
-    } finally {
-      setLoading(false);
-    }
+    setSearchText(e.target.value);
   };
   return (
     <div>
@@ -50,7 +47,10 @@ const AllUsers = () => {
           id=""
         />
       </div>
-      <UsersTable users={users} searchResults={searchResults} refetch={refetch}></UsersTable>
+      {/* <ul>
+        {users.map(user => <li key={user._id}>{user.name}</li>)}
+      </ul> */}
+      <UsersTable users={users} refetch={refetch}></UsersTable>
     </div>
   );
 };

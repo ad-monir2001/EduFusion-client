@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
-const UsersTable = ({ users, refetch,searchResults }) => {
+const UsersTable = ({ users, refetch, }) => {
   const axiosSecure = useAxiosSecure();
   const handleUpdateUser = (id, role) => {
     axiosSecure
@@ -12,6 +13,19 @@ const UsersTable = ({ users, refetch,searchResults }) => {
         refetch();
       });
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 6;
+  const totalPages = Math.ceil(users.length / usersPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const paginatedUsers = users.slice(
+    (currentPage - 1) * usersPerPage,
+    currentPage * usersPerPage
+  );
+
   return (
     <div>
       <section className="container px-4 mx-auto">
@@ -43,7 +57,7 @@ const UsersTable = ({ users, refetch,searchResults }) => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {users.map((user) => (
+                      {paginatedUsers.map((user) => (
                         <tr
                           key={user._id}
                           className="transition-colors duration-200 hover:bg-gray-50"
@@ -72,7 +86,6 @@ const UsersTable = ({ users, refetch,searchResults }) => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm">
                             {user.role !== 'admin' && (
-                              
                               <select
                                 onChange={(e) =>
                                   handleUpdateUser(user._id, e.target.value)
@@ -80,6 +93,7 @@ const UsersTable = ({ users, refetch,searchResults }) => {
                                 name="role"
                                 className="select select-bordered w-full max-w-xs font-heading"
                               >
+                                <option>Select</option>
                                 <option value="student">Student</option>
                                 <option value="tutor">Tutor</option>
                                 <option value="admin">Admin</option>
@@ -90,12 +104,55 @@ const UsersTable = ({ users, refetch,searchResults }) => {
                       ))}
                     </tbody>
                   </table>
+
+                  {/* pagination */}
+                  <div className="flex items-center justify-center">
+                    <div className="flex justify-between items-center px-6 py-4 bg-gray-50">
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
+                          currentPage === 1
+                            ? 'cursor-not-allowed'
+                            : 'hover:bg-blue-500 hover:text-white'
+                        }`}
+                      >
+                        Previous
+                      </button>
+                      <div className="flex space-x-2">
+                        {Array.from({ length: totalPages }, (_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => handlePageChange(index + 1)}
+                            className={`px-4 py-2 rounded-md ${
+                              currentPage === index + 1
+                                ? 'bg-blue-500 text-white'
+                                : 'bg-white text-gray-700 hover:bg-blue-500 hover:text-white'
+                            }`}
+                          >
+                            {index + 1}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
+                          currentPage === totalPages
+                            ? 'cursor-not-allowed'
+                            : 'hover:bg-blue-500 hover:text-white'
+                        }`}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Mobile version */}
               <div className="md:hidden space-y-4">
-                {users.map((user) => (
+                {paginatedUsers.map((user) => (
                   <div
                     key={user._id}
                     className="bg-white rounded-lg shadow p-4 space-y-4 transform transition-all duration-200 hover:shadow-md hover:-translate-y-1"
@@ -138,6 +195,48 @@ const UsersTable = ({ users, refetch,searchResults }) => {
           </div>
         </div>
       </section>
+      {/* pagination */}
+      <div className="md:hidden flex items-center justify-center">
+        <div className="flex justify-between items-center px-6 py-4 bg-gray-50">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
+              currentPage === 1
+                ? 'cursor-not-allowed'
+                : 'hover:bg-blue-500 hover:text-white'
+            }`}
+          >
+            Previous
+          </button>
+          <div className="flex space-x-2">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`px-4 py-2 rounded-md ${
+                  currentPage === index + 1
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white text-gray-700 hover:bg-blue-500 hover:text-white'
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
+              currentPage === totalPages
+                ? 'cursor-not-allowed'
+                : 'hover:bg-blue-500 hover:text-white'
+            }`}
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
