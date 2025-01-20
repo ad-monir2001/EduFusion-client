@@ -1,6 +1,11 @@
+import axios from 'axios';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 
 const ApprovedSession = ({ approvedSession, refetch }) => {
+  const [selectedSession, setSelectSessions] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -28,6 +33,40 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
           });
       }
     });
+  };
+
+  // update a session
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const status = e.target.status.value;
+    const updateData = { status: status };
+
+    // update data send to server
+    axios
+      .patch(
+        `${import.meta.env.VITE_API_BASE_URL}/session/${updateId}`,
+        updateData
+      )
+      .then((response) => {
+        console.log(response.data);
+        toast.success('Successfully updated session status.');
+        refetch();
+        document.getElementById('update').close();
+      })
+      .catch((error) => {
+        console.log('error to update session', error);
+        toast.error('Failed to update session status.');
+      });
+  };
+
+  // open session modal
+  const openUpdateModal = (sessionId) => {
+    const sessionToUpdate = approvedSession.filter(
+      (data) => data._id === sessionId
+    );
+    setSelectSessions(sessionToUpdate);
+    setUpdateId(sessionId);
+    document.getElementById('update').showModal();
   };
   return (
     <div>
@@ -58,6 +97,11 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
+              {approvedSession.length === 0 && (
+                <p className="font-body text-xl py-5 text-center text-red-500">
+                  NO Approved Session here.....
+                </p>
+              )}
               {approvedSession.map((session) => (
                 <tr
                   key={session._id}
@@ -91,7 +135,10 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <div className="flex flex-col gap-3">
-                      <button className="bg-green-200 text-green-600 font-semibold p-1 rounded-xl">
+                      <button
+                        onClick={() => openUpdateModal(session._id)}
+                        className="bg-green-200 text-green-600 font-semibold p-1 rounded-xl"
+                      >
                         Update
                       </button>
                       <button
@@ -108,6 +155,42 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
           </table>
         </div>
       </div>
+      {/* show the conformation modal for rejection  */}
+      <dialog id="update" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box text-center">
+          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+            Update the session rejected or approved?
+          </h3>
+          <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">
+            <form onSubmit={handleUpdate}>
+              <div className="flex flex-col items-center justify-center space-y-2 p-5">
+                <label className="font-heading">Do You Want to</label>
+                <select
+                  name="status"
+                  className="select select-bordered w-full max-w-xs font-heading"
+                >
+                  <option disabled>Update The session</option>
+                  <option value="pending">Pending The session</option>
+                  <option value="rejected">Reject The session</option>
+                </select>
+              </div>
+              <button className="bg-green-500 text-white px-5 py-2 text-xl font-semibold p-1 rounded-xl">
+                Update session Status
+              </button>
+            </form>
+          </div>
+          <div className="modal-action">
+            <form
+              method="dialog"
+              className="flex justify-between gap-4 items-center"
+            >
+              <button className="btn btn-error text-white font-heading">
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

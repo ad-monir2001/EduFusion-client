@@ -8,37 +8,6 @@ const SessionTable = ({ pendingSession, refetch }) => {
   const [selectRejectedSession, setSelectRejectedSession] = useState([]);
   const [updateId, setUpdateId] = useState(null);
 
-  // rejected a session
-  // const handleRejected = (id) => {
-  //   const updatedData = { status: 'rejected' };
-  //   Swal.fire({
-  //     title: 'Are you sure?',
-  //     text: 'Are you sure to rejected this session?',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Yes, Reject it!',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .patch(
-  //           `${import.meta.env.VITE_API_BASE_URL}/session/${id}`,
-  //           updatedData
-  //         )
-  //         .then((response) => {
-  //           console.log(response.data);
-  //           toast.success('Successfully updated session status.');
-  //           refetch();
-  //         })
-  //         .catch((error) => {
-  //           console.log('error to update session', error);
-  //           toast.error('Failed to update session status.');
-  //         });
-  //     }
-  //   });
-  // };
-
   // update a session to approve
   const handleUpdateSession = (e) => {
     e.preventDefault();
