@@ -6,11 +6,12 @@ import { compareAsc, parse } from 'date-fns';
 import { Calendar, Clock, DollarSign } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 const ViewSessionDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [role] = useRole();
-  console.log(role);
 
   const {
     data: sessions = [],
@@ -32,7 +33,27 @@ const ViewSessionDetails = () => {
 
   const handleBookSession = (session) => {
     const sessionPrice = parseInt(session.fee);
-    console.log(sessionPrice);
+    const { _id: sessionId, email: tutorEmail, ...restSession } = session;
+    const bookedData = {
+      ...restSession,
+      tutorEmail,
+      sessionId,
+      studentName: user.displayName,
+      studentEmail: user.email,
+    };
+    if (sessionPrice === 0) {
+      axios
+        .post(`${import.meta.env.VITE_API_BASE_URL}/bookedSession`, bookedData)
+        .then((res) => {
+          console.log(res.data);
+          toast.success('Your Session booked Successfully.😊');
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error('Failed to Book the session');
+        });
+    }
+    console.log(bookedData);
   };
   return (
     <div className="flex items-center justify-center my-10 md:my-20">
@@ -123,20 +144,22 @@ const ViewSessionDetails = () => {
                 new Date(),
                 parse(session.sessionEndDate, 'dd/MM/yyyy', new Date())
               ) < 0 ? (
-                <button
-                  onClick={() => handleBookSession(session)}
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 font-heading"
-                >
-                  Book Now
-                </button>
-              ) : (
-                <button
-                  className="w-full bg-gray-300 text-gray-500 py-3 px-6 rounded-lg font-semibold cursor-not-allowed font-heading"
-                  disabled
-                >
-                  Registration Closed
-                </button>
-              )}
+                role === 'student' ? (
+                  <button
+                    onClick={() => handleBookSession(session)}
+                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 font-heading"
+                  >
+                    Book Now
+                  </button>
+                ) : (
+                  <button
+                    className="w-full bg-gray-300 text-gray-500 py-3 px-6 rounded-lg font-semibold cursor-not-allowed font-heading"
+                    disabled
+                  >
+                    Registration Closed
+                  </button>
+                )
+              ) : null}
             </div>
           </div>
         </div>
