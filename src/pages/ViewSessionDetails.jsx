@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { compareAsc, parse } from 'date-fns';
@@ -12,6 +12,7 @@ const ViewSessionDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [role] = useRole();
+  const navigate = useNavigate()
 
   const {
     data: sessions = [],
@@ -49,11 +50,12 @@ const ViewSessionDetails = () => {
           toast.success('Your Session booked Successfully.😊');
         })
         .catch((error) => {
-          console.log(error);
-          toast.error('Failed to Book the session');
+          console.log(error.response);
+          toast.error(`${error.response.data.message}`);
         });
+    }else{
+      navigate('/')
     }
-    console.log(bookedData);
   };
   return (
     <div className="flex items-center justify-center my-10 md:my-20">
