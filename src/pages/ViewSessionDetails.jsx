@@ -2,10 +2,15 @@
 import { useParams } from 'react-router-dom';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import { compareAsc, parse } from 'date-fns';
 import { Calendar, Clock, DollarSign } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import useRole from '../hooks/useRole';
 const ViewSessionDetails = () => {
   const { id } = useParams();
-  const isRegistrationOpen = false;
+  const { user } = useAuth();
+  const [role] = useRole();
+  console.log(role);
 
   const {
     data: sessions = [],
@@ -25,7 +30,10 @@ const ViewSessionDetails = () => {
     (session) => session._id === id
   );
 
-  console.log(desiredSession);
+  const handleBookSession = (session) => {
+    const sessionPrice = parseInt(session.fee);
+    console.log(sessionPrice);
+  };
   return (
     <div className="flex items-center justify-center my-10 md:my-20">
       {desiredSession.map((session) => (
@@ -111,8 +119,14 @@ const ViewSessionDetails = () => {
 
             {/* Action Button */}
             <div className="mt-6">
-              {isRegistrationOpen ? (
-                <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 font-heading">
+              {compareAsc(
+                new Date(),
+                parse(session.sessionEndDate, 'dd/MM/yyyy', new Date())
+              ) < 0 ? (
+                <button
+                  onClick={() => handleBookSession(session)}
+                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 font-heading"
+                >
                   Book Now
                 </button>
               ) : (

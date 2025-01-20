@@ -111,11 +111,7 @@ const Home = () => {
                 </div>
 
                 <div>
-                  {compareAsc(
-                    new Date(),
-                    parse(session.sessionEndDate, 'dd/MM/yyyy', new Date())
-                  ) < 0 ? (
-                    <Link
+                <Link
                       to={`read-more/${session._id}`}
                       className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg
                   transform transition-all duration-300
@@ -137,9 +133,7 @@ const Home = () => {
                         />
                       </svg>
                     </Link>
-                  ) : (
-                    ''
-                  )}
+                  
                 </div>
               </div>
             </div>
@@ -148,7 +142,7 @@ const Home = () => {
           {visibleSessions < approvedSessions.length && (
             <button
               onClick={handleLoadMore}
-              className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform duration-300"
+              className="mt-4 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform duration-300 font-heading"
             >
               Load More
             </button>
