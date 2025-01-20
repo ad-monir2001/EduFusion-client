@@ -28,6 +28,11 @@ const RejectedSession = ({ rejectedSession }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
+            {rejectedSession.length === 0 && (
+                <p className="font-heading py-6 text-center text-red-400">
+                  No Session is Rejected.....
+                </p>
+              )}
               {rejectedSession.map((session) => (
                 <tr
                   key={session._id}

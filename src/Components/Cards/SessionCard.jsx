@@ -15,6 +15,7 @@ const SessionCard = ({ session, refetch }) => {
     startTime,
     endTime,
     _id,
+    feedback,
   } = session;
 
   const handleApprovalRequest = (id) => {
@@ -117,6 +118,11 @@ const SessionCard = ({ session, refetch }) => {
               </button>
             )}
           </div>
+          {feedback && status === 'rejected' && (
+            <p className="my-4 font-heading text-red-600">
+              Feedback: <span className="text-red-400">{feedback}</span>
+            </p>
+          )}
         </div>
       </div>
     </div>

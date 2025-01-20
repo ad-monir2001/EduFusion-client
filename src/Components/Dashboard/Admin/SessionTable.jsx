@@ -5,38 +5,39 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 const SessionTable = ({ pendingSession, refetch }) => {
   const [selectedSession, setSelectedSession] = useState([]);
+  const [selectRejectedSession, setSelectRejectedSession] = useState([]);
   const [updateId, setUpdateId] = useState(null);
 
   // rejected a session
-  const handleRejected = (id) => {
-    const updatedData = { status: 'rejected' };
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'Are you sure to rejected this session?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Reject it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .patch(
-            `${import.meta.env.VITE_API_BASE_URL}/session/${id}`,
-            updatedData
-          )
-          .then((response) => {
-            console.log(response.data);
-            toast.success('Successfully updated session status.');
-            refetch();
-          })
-          .catch((error) => {
-            console.log('error to update session', error);
-            toast.error('Failed to update session status.');
-          });
-      }
-    });
-  };
+  // const handleRejected = (id) => {
+  //   const updatedData = { status: 'rejected' };
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: 'Are you sure to rejected this session?',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, Reject it!',
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       axios
+  //         .patch(
+  //           `${import.meta.env.VITE_API_BASE_URL}/session/${id}`,
+  //           updatedData
+  //         )
+  //         .then((response) => {
+  //           console.log(response.data);
+  //           toast.success('Successfully updated session status.');
+  //           refetch();
+  //         })
+  //         .catch((error) => {
+  //           console.log('error to update session', error);
+  //           toast.error('Failed to update session status.');
+  //         });
+  //     }
+  //   });
+  // };
 
   // update a session to approve
   const handleUpdateSession = (e) => {
@@ -62,7 +63,36 @@ const SessionTable = ({ pendingSession, refetch }) => {
       });
   };
 
-  // open session modal
+  // update a session to reject
+  const handleRejectedSession = (e) => {
+    e.preventDefault();
+    const reason = e.target.reason.value;
+    const feedback = e.target.feedback.value;
+    const updateData = {
+      reason: reason,
+      feedback: feedback,
+      status: 'rejected',
+    };
+
+    // update data send to server
+    axios
+      .patch(
+        `${import.meta.env.VITE_API_BASE_URL}/session/${updateId}`,
+        updateData
+      )
+      .then((response) => {
+        console.log(response.data);
+        toast.success('Successfully rejected session');
+        refetch();
+        document.getElementById('reject').close();
+      })
+      .catch((error) => {
+        console.log('error to reject session', error);
+        toast.error('Failed to reject session status.');
+      });
+  };
+
+  // open session modal for approve sessions
   const openSessionModal = (sessionId) => {
     const dataToUpdate = pendingSession.filter(
       (data) => data._id === sessionId
@@ -70,6 +100,16 @@ const SessionTable = ({ pendingSession, refetch }) => {
     setSelectedSession(dataToUpdate);
     setUpdateId(sessionId);
     document.getElementById('conform').showModal();
+  };
+
+  // open session modal for rejected sessions
+  const openRejectedModal = (sessionId) => {
+    const dataToReject = pendingSession.filter(
+      (data) => data._id === sessionId
+    );
+    setSelectRejectedSession(dataToReject);
+    setUpdateId(sessionId);
+    document.getElementById('reject').showModal();
   };
   return (
     <div>
@@ -100,6 +140,11 @@ const SessionTable = ({ pendingSession, refetch }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
+              {pendingSession.length === 0 && (
+                <p className="font-heading py-6 text-center text-green-400">
+                  No Session is pending.....
+                </p>
+              )}
               {pendingSession.map((session) => (
                 <tr
                   key={session._id}
@@ -140,7 +185,7 @@ const SessionTable = ({ pendingSession, refetch }) => {
                         Approved
                       </button>
                       <button
-                        onClick={() => handleRejected(session._id)}
+                        onClick={() => openRejectedModal(session._id)}
                         className="bg-red-200 text-red-600 p-1 rounded-xl font-semibold"
                       >
                         Rejected
@@ -177,6 +222,64 @@ const SessionTable = ({ pendingSession, refetch }) => {
                     type="number"
                     name="fee"
                     defaultValue={data.fee}
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <button className="btn btn-success font-heading text-white">
+                  Confirm
+                </button>
+              </form>
+            ))}
+          </div>
+          <div className="modal-action">
+            <form
+              method="dialog"
+              className="flex justify-between gap-4 items-center"
+            >
+              <button className="btn btn-error text-white font-heading">
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* show the conformation modal for rejection  */}
+      <dialog id="reject" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box text-center">
+          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+            Update the session rejected or approved?
+          </h3>
+          <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">
+            {selectRejectedSession.map((data) => (
+              <form
+                onSubmit={handleRejectedSession}
+                key={data._id}
+                className="card-body"
+              >
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-heading">
+                      Rejection Reason
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    name="reason"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-heading">
+                      Rejection Feedback
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    name="feedback"
                     className="input input-bordered"
                     required
                   />

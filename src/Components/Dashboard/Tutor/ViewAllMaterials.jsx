@@ -3,8 +3,14 @@ import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import Swal from 'sweetalert2';
+import { useState } from 'react';
+import { imageUpload } from '../../../utils/utils';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const ViewAllMaterials = () => {
+  const [selectMaterials, setSelectMaterial] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
@@ -47,6 +53,40 @@ const ViewAllMaterials = () => {
           });
       }
     });
+  };
+
+  // Update Material
+  const handleUpdateMaterial = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const googleDriveLink = form.driveLink.value;
+    const image = form.image.files[0];
+    const materialImage = await imageUpload(image);
+
+    const materialData = { googleDriveLink, materialImage };
+
+    axios
+      .patch(
+        `${import.meta.env.VITE_API_BASE_URL}/materials/${updateId}`,
+        materialData
+      )
+      .then((response) => {
+        console.log(response.data);
+        document.getElementById('update').close();
+        toast.success('Successfully Updated your materials');
+        refetch();
+      })
+      .catch((error) => {
+        console.log('error to update material data', error.message);
+      });
+  };
+
+  // open session modal for rejected sessions
+  const openUpdateModal = (sessionId) => {
+    const materialToUpdate = materials.filter((data) => data._id === sessionId);
+    setSelectMaterial(materialToUpdate);
+    setUpdateId(sessionId);
+    document.getElementById('update').showModal();
   };
 
   return (
@@ -105,7 +145,10 @@ const ViewAllMaterials = () => {
                     </a>
                   </p>
                   <div className="flex justify-between mt-4">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded shadow">
+                    <button
+                      onClick={() => openUpdateModal(material._id)}
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded shadow"
+                    >
                       Update
                     </button>
                     <button
@@ -121,6 +164,81 @@ const ViewAllMaterials = () => {
           </div>
         )}
       </div>
+
+      {/* show the conformation modal for rejection  */}
+      <dialog id="update" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box text-center">
+          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+            Update the session rejected or approved?
+          </h3>
+          <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">
+            {selectMaterials.map((session) => (
+              <form
+                key={session._id}
+                onSubmit={handleUpdateMaterial}
+                className="card-body"
+              >
+                {/* session details */}
+                <div className="space-y-2 text-center">
+                  <p className="font-heading">
+                    Session Name:{' '}
+                    <span className="text-green-400">{session.title}</span>{' '}
+                  </p>
+                  <p className="font-heading">
+                    Session Id:{' '}
+                    <span className="text-green-400">{session._id}</span>{' '}
+                  </p>
+                  <p className="font-heading">
+                    Tutor Email:{' '}
+                    <span className="text-green-400">{session.email}</span>{' '}
+                  </p>
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-heading">
+                      Material Google Drive Link:
+                    </span>
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    className="file-input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-heading">
+                      Material Google Drive Link:
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    name="driveLink"
+                    defaultValue={session.googleDriveLink}
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <button className="btn btn-success font-heading text-white text-xl">
+                  Update Materials
+                </button>
+              </form>
+            ))}
+          </div>
+          <div className="modal-action">
+            <form
+              method="dialog"
+              className="flex justify-between gap-4 items-center"
+            >
+              <button className="btn btn-error text-white font-heading">
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
