@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const [tutors, setTutors] = useState([]);
+  const [visibleSessions, setVisibleSessions] = useState(6);
 
   useEffect(() => {
     const fetchTutors = async () => {
@@ -39,6 +40,10 @@ const Home = () => {
   const approvedSessions = sessions.filter(
     (session) => session.status === 'approved'
   );
+
+  const handleLoadMore = () => {
+    setVisibleSessions((prev) => prev + 6);
+  };
 
   return (
     <div>
@@ -71,7 +76,7 @@ const Home = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-          {approvedSessions.map((session) => (
+          {approvedSessions.slice(0, visibleSessions).map((session) => (
             <div
               key={session._id}
               className="w-full max-w-md bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
@@ -105,30 +110,49 @@ const Home = () => {
                   </span>
                 </div>
 
-                <Link to={`read-more/${session._id}`}
-                  className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg
-              transform transition-all duration-300
-              hover:bg-blue-700 active:scale-95
-              flex items-center justify-center group font-heading"
-                >
-                  Read More
-                  <svg
-                    className="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </Link>
+                <div>
+                  {compareAsc(
+                    new Date(),
+                    parse(session.sessionEndDate, 'dd/MM/yyyy', new Date())
+                  ) < 0 ? (
+                    <Link
+                      to={`read-more/${session._id}`}
+                      className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg
+                  transform transition-all duration-300
+                  hover:bg-blue-700 active:scale-95
+                  flex items-center justify-center group font-heading"
+                    >
+                      Read More
+                      <svg
+                        className="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </Link>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
             </div>
           ))}
+
+          {visibleSessions < approvedSessions.length && (
+            <button
+              onClick={handleLoadMore}
+              className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform duration-300"
+            >
+              Load More
+            </button>
+          )}
         </div>
       </section>
       {/* Tutor section */}
