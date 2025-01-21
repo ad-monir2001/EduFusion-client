@@ -54,7 +54,7 @@ const ViewSessionDetails = () => {
           toast.error(`${error.response.data.message}`);
         });
     }else{
-      navigate('/')
+      navigate('/dashboard/payment')
     }
   };
   return (

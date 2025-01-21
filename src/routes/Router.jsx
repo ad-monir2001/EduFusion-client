@@ -24,6 +24,7 @@ import AdminRoute from './AdminRoute';
 import StudentRoute from './StudentRoute';
 import TutorRoute from './TutorRoute';
 import ViewSessionDetails from '../pages/ViewSessionDetails';
+import Payment from '../Components/Dashboard/Student/Payment';
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +70,14 @@ export const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <BookedSession></BookedSession>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: 'payment',
+        element: (
+          <StudentRoute>
+            <Payment></Payment>
           </StudentRoute>
         ),
       },
