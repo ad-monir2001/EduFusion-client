@@ -54,7 +54,12 @@ const ViewSessionDetails = () => {
           toast.error(`${error.response.data.message}`);
         });
     }else{
-      navigate('/dashboard/payment')
+      navigate('/dashboard/payment',{
+
+        state:{
+          sessionPrice,bookedData
+        }
+      })
     }
   };
   return (
