@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { compareAsc, parse } from 'date-fns';
-import { Calendar, Clock, DollarSign } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
 import axios from 'axios';
