@@ -3,8 +3,10 @@ import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const StudyMaterial = () => {
+  const [materials, setMaterials] = useState([]);
   const { user } = useAuth();
   const [sessionid, setSessionid] = useState(null);
   const axiosSecure = useAxiosSecure();
@@ -17,37 +19,49 @@ const StudyMaterial = () => {
     queryKey: ['bookedSessions', user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure(`/bookedSession/${user.email}`);
+
       return data;
     },
   });
 
   //   get materials data
 
-  // const { data: materials = [] } = useQuery({
+  // const { data: material = [] } = useQuery({
   //   queryKey: ['materials', sessionid],
   //   queryFn: async () => {
-  //     const { data } = await axiosSecure(`/materials/${sessionid}`);
+  //     const { data } = await axiosSecure(`/material/${sessionid}`);
+  //     setMaterials(material)
   //     return data;
   //   },
   // });
-  
-  const [materials, setMaterials] = useState([]);
 
-const handleShowMaterials = (sessionid) => {
-  console.log(sessionid);
-  axios
-    .get(`${import.meta.env.VITE_API_BASE_URL}/materials/${sessionid}`)
-    .then((res) => {
-      setMaterials(res.data); 
-    })
-    .catch((err) => {
-      console.error(err.response ? err.response.data : err);
-    });
-};
+  //   const [materials, setMaterials] = useState([]);
 
-console.log(materials);
+  const handleShowMaterials = (sessionid) => {
+    axios
+      .get(`${import.meta.env.VITE_API_BASE_URL}/material/${sessionid}`)
+      .then((res) => {
+        setMaterials(res.data);
+      })
+      .catch((err) => {
+        console.error(err.response ? err.response.data : err);
+      });
+  };
 
- 
+  const handleDownload = (imageUrl) => {
+    fetch(imageUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'session-material.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => console.error('Download failed:', error));
+  };
+
   return (
     <div>
       {/*  Heading */}
@@ -81,6 +95,7 @@ console.log(materials);
               <button
                 onClick={() => {
                   document.getElementById('materials').showModal();
+                  setSessionid(bookedSession.sessionId);
                   handleShowMaterials(bookedSession.sessionId);
                 }}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-heading"
@@ -93,7 +108,7 @@ console.log(materials);
       </div>
 
       {/* show the conformation modal */}
-      <dialog id="materials" className="modal modal-bottom sm:modal-middle">
+      <dialog id="materials" className="modal modal-middle">
         <div className="modal-box text-center">
           <h3 className="font-bold text-xl font-heading text-[#ff3600]">
             Get Your Materials in This Session
@@ -103,6 +118,48 @@ console.log(materials);
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
+
+              <div className="grid grid-cols-1  gap-4">
+                {materials.map((material) => (
+                  <div
+                    key={material._id}
+                    className="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center w-64"
+                  >
+                    {/* Image Section */}
+                    <img
+                      src={material.materialImage}
+                      alt="Material"
+                      className="w-full h-40 rounded-lg object-cover"
+                    />
+
+                    {/* Material Info */}
+                    <div className="mt-4 text-center">
+                      <h3 className="text-sm font-semibold text-gray-600">
+                        Study Session Material Id:
+                      </h3>
+                      <p className="text-sm text-gray-500">{material._id}</p>
+                    </div>
+
+                    {/* Download and Link Section */}
+                    <div className="mt-4 space-y-2 w-full">
+                      <a
+                        onClick={() => handleDownload(material.materialImage)}
+                        className="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg text-sm hover:bg-blue-600 transition"
+                      >
+                        Download Image
+                      </a>
+                      <a
+                        href={material.googleDriveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-center text-blue-500 text-sm font-medium hover:underline"
+                      >
+                        Google Drive Link
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </form>
           </div>
         </div>
