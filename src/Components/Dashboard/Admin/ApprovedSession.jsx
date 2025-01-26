@@ -68,6 +68,18 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
     setUpdateId(sessionId);
     document.getElementById('update').showModal();
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const sessionsPerPage = 5;
+  const totalPages = Math.ceil(approvedSession.length / sessionsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const paginatedSessions = approvedSession.slice(
+    (currentPage - 1) * sessionsPerPage,
+    currentPage * sessionsPerPage
+  );
   return (
     <div>
       <div className="">
@@ -102,7 +114,7 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
                   NO Approved Session here.....
                 </p>
               )}
-              {approvedSession.map((session) => (
+              {paginatedSessions.map((session) => (
                 <tr
                   key={session._id}
                   className="transition-colors duration-200 hover:bg-gray-50"
@@ -153,6 +165,48 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
               ))}
             </tbody>
           </table>
+          {/* pagination */}
+          <div className="flex items-center justify-center">
+            <div className="flex justify-between items-center px-6 py-4 bg-gray-50">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
+                  currentPage === 1
+                    ? 'cursor-not-allowed'
+                    : 'hover:bg-blue-500 hover:text-white'
+                }`}
+              >
+                Previous
+              </button>
+              <div className="flex space-x-2">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handlePageChange(index + 1)}
+                    className={`px-4 py-2 rounded-md ${
+                      currentPage === index + 1
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-white text-gray-700 hover:bg-blue-500 hover:text-white'
+                    }`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
+                  currentPage === totalPages
+                    ? 'cursor-not-allowed'
+                    : 'hover:bg-blue-500 hover:text-white'
+                }`}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       {/* show the conformation modal for rejection  */}

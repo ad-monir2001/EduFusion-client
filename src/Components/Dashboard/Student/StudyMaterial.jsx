@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const StudyMaterial = () => {
   const { user } = useAuth();
-
+  const [sessionid, setSessionid] = useState(null);
   const axiosSecure = useAxiosSecure();
+
   const {
     data: bookedSessions = [],
     isLoading,
@@ -18,6 +20,34 @@ const StudyMaterial = () => {
       return data;
     },
   });
+
+  //   get materials data
+
+  // const { data: materials = [] } = useQuery({
+  //   queryKey: ['materials', sessionid],
+  //   queryFn: async () => {
+  //     const { data } = await axiosSecure(`/materials/${sessionid}`);
+  //     return data;
+  //   },
+  // });
+  
+  const [materials, setMaterials] = useState([]);
+
+const handleShowMaterials = (sessionid) => {
+  console.log(sessionid);
+  axios
+    .get(`${import.meta.env.VITE_API_BASE_URL}/materials/${sessionid}`)
+    .then((res) => {
+      setMaterials(res.data); 
+    })
+    .catch((err) => {
+      console.error(err.response ? err.response.data : err);
+    });
+};
+
+console.log(materials);
+
+ 
   return (
     <div>
       {/*  Heading */}
@@ -48,7 +78,13 @@ const StudyMaterial = () => {
                 {bookedSession.title}
               </h3>
 
-              <button  onClick={()=>document.getElementById('materials').showModal()} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-heading">
+              <button
+                onClick={() => {
+                  document.getElementById('materials').showModal();
+                  handleShowMaterials(bookedSession.sessionId);
+                }}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-heading"
+              >
                 View Materials
               </button>
             </div>
