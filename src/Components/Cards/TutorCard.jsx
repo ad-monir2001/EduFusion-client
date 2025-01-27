@@ -2,7 +2,7 @@ const TutorCard = ({ tutor }) => {
   const { image, name } = tutor;
 
   return (
-    <div className="relative group w-80 h-96 bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+    <div className="relative group h-96 bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
       {/* Image Container with Overlay */}
       <div className="relative h-48 overflow-hidden">
         <img

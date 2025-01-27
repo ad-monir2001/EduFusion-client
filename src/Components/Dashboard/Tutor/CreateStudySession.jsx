@@ -6,8 +6,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { imageUpload } from '../../../utils/utils';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 const CreateStudySession = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [startTime, setStartTime] = useState('');
@@ -69,11 +71,10 @@ const CreateStudySession = () => {
       sessionImage,
     };
 
-    console.table(sessionData);
-
     try {
       await axiosSecure.post('/session', sessionData);
-      toast.success('Data Added Successfully!');
+      toast.success('Your session created Successfully!');
+      navigate('/dashboard/view-study-session');
     } catch (error) {
       console.log('error from add new session', error.message);
     }

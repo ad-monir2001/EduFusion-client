@@ -65,7 +65,7 @@ const Home = () => {
         </div>
       </section>
       {/* Study session section */}
-      <section>
+      <section className='w-11/12 mx-auto'>
         {/* heading */}
         <div className="text-center py-6 md:py-12">
           <h1 className="font-heading text-xl md:text-3xl font-semibold text-[#2C3E50]">
@@ -150,7 +150,7 @@ const Home = () => {
         </div>
       </section>
       {/* Tutor section */}
-      <section>
+      <section className='w-11/12 mx-auto'>
         {/* heading */}
         <div className="text-center py-6 md:py-12">
           <h1 className="font-heading text-xl md:text-3xl font-semibold text-[#2C3E50]">
@@ -160,7 +160,7 @@ const Home = () => {
             Learn from the Best, Achieve the Greatest
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-7 p-4">
           {tutors.map((tutor) => (
             <TutorCard key={tutor._id} tutor={tutor}></TutorCard>
           ))}
