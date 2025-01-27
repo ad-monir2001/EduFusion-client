@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import {  useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-
 
 const StudyMaterial = () => {
   const [materials, setMaterials] = useState([]);
@@ -27,13 +26,14 @@ const StudyMaterial = () => {
   //   materials data
 
   const handleShowMaterials = (sessionid) => {
-    axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/material/${sessionid}`)
+    axiosSecure
+      .get(`/material/${sessionid}`)
       .then((res) => {
         setMaterials(res.data);
       })
       .catch((err) => {
-        console.error(err.response ? err.response.data : err);
+        console.error(err.response ? err.response.data.data : err);
+        setMaterials([]);
       });
   };
 
@@ -148,6 +148,12 @@ const StudyMaterial = () => {
                     </div>
                   </div>
                 ))}
+                {materials.length === 0 && (
+                  <p className="font-heading text-center mx-4">
+                    {' '}
+                    No Materials provided by tutors.
+                  </p>
+                )}
               </div>
             </form>
           </div>

@@ -73,8 +73,8 @@ const CheckoutForm = ({ sessionPrice, bookedData }) => {
       },
     });
     if (paymentIntent.status === 'succeeded') {
-      axios
-        .post(`${import.meta.env.VITE_API_BASE_URL}/bookedSession`, bookedData)
+      axiosSecure
+        .post(`/bookedSession`, bookedData)
         .then((res) => {
           console.log(res.data);
           toast.success('Your Session booked Successfully.😊');

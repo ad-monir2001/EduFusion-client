@@ -13,6 +13,7 @@ const ViewSessionDetails = () => {
   const { user } = useAuth();
   const [role] = useRole();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const {
     data: sessions = [],
@@ -43,8 +44,8 @@ const ViewSessionDetails = () => {
       studentEmail: user.email,
     };
     if (sessionPrice === 0) {
-      axios
-        .post(`${import.meta.env.VITE_API_BASE_URL}/bookedSession`, bookedData)
+      axiosSecure
+        .post(`/bookedSession`, bookedData)
         .then((res) => {
           console.log(res.data);
           toast.success('Your Session booked Successfully.😊');

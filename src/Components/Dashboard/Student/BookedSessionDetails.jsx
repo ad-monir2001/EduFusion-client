@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const BookedSessionDetails = () => {
@@ -43,8 +42,8 @@ const BookedSessionDetails = () => {
     };
 
     // send data to server
-    axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}/reviews`, reviewDetails)
+    axiosSecure
+      .post(`/reviews`, reviewDetails)
       .then((response) => {
         console.log(response.data);
         toast.success('Successfully Accepted your Reviews');
