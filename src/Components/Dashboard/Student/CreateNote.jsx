@@ -2,10 +2,12 @@ import axios from 'axios';
 import { useAuth } from '../../../hooks/useAuth';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const CreateNote = () => {
   const { user } = useAuth();
   const navigate = useNavigate()
+  const axiosSecure = useAxiosSecure();
 
   const handleCreateNote = (e) => {
     e.preventDefault();
@@ -16,8 +18,8 @@ const CreateNote = () => {
     const noteData = { email, noteTitle, noteDescription };
 
     // save the data to the server
-    axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}/notes`, noteData)
+    axiosSecure
+      .post(`/notes`, noteData)
       .then((response) => {
         console.log(response.data);
         toast.success('Successfully Uploaded your materials');

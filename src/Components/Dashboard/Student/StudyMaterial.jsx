@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+
 
 const StudyMaterial = () => {
   const [materials, setMaterials] = useState([]);

@@ -38,8 +38,8 @@ const UploadMaterials = () => {
 
     const materialData = { googleDriveLink, materialImage, sessionId,email };
 
-    axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}/materials`, materialData)
+    axiosSecure
+      .post(`/materials`, materialData)
       .then((response) => {
         console.log(response.data);
         document.getElementById('conform').close();

@@ -19,6 +19,7 @@ const AllMaterial = () => {
     },
   });
   // delete a material
+
   const handleDeleteMaterial = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -30,11 +31,10 @@ const AllMaterial = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/materials/${id}`, {
-          method: 'DELETE',
-        })
-          .then((res) => res.json())
-          .then((data) => {
+        axiosSecure
+          .delete(`/materials/${id}`)
+          .then((response) => {
+            const { data } = response;
             if (data.deletedCount) {
               Swal.fire({
                 title: 'Deleted!',
@@ -43,10 +43,19 @@ const AllMaterial = () => {
               });
               refetch();
             }
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Error!',
+              text: 'Something went wrong while deleting the material.',
+              icon: 'error',
+            });
+            console.error('Error deleting material:', error);
           });
       }
     });
   };
+
   return (
     <div>
       {/* heading */}

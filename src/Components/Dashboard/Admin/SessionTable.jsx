@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import axios from 'axios';
+
 import toast from 'react-hot-toast';
 import { useState } from 'react';
-import Swal from 'sweetalert2';
+
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 const SessionTable = ({ pendingSession, refetch }) => {
   const [selectedSession, setSelectedSession] = useState([]);
   const [selectRejectedSession, setSelectRejectedSession] = useState([]);
   const [updateId, setUpdateId] = useState(null);
-
+  const axiosSecure = useAxiosSecure();
   // update a session to approve
   const handleUpdateSession = (e) => {
     e.preventDefault();
@@ -15,11 +16,8 @@ const SessionTable = ({ pendingSession, refetch }) => {
     const updateData = { fee: fee, status: 'approved' };
 
     // update data send to server
-    axios
-      .patch(
-        `${import.meta.env.VITE_API_BASE_URL}/session/${updateId}`,
-        updateData
-      )
+    axiosSecure
+      .patch(`/session/${updateId}`, updateData)
       .then((response) => {
         console.log(response.data);
         toast.success('Successfully updated session status.');
@@ -44,11 +42,8 @@ const SessionTable = ({ pendingSession, refetch }) => {
     };
 
     // update data send to server
-    axios
-      .patch(
-        `${import.meta.env.VITE_API_BASE_URL}/session/${updateId}`,
-        updateData
-      )
+    axiosSecure
+      .patch(`/session/${updateId}`, updateData)
       .then((response) => {
         console.log(response.data);
         toast.success('Successfully rejected session');
@@ -82,7 +77,6 @@ const SessionTable = ({ pendingSession, refetch }) => {
   };
   return (
     <div>
-     
       <div className="w-full p-4">
         <div className="overflow-hidden bg-white shadow-md rounded-lg transition-all duration-300 hover:shadow-lg">
           {/* Large screens - Regular table */}

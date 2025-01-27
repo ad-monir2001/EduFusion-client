@@ -37,11 +37,10 @@ const ViewAllMaterials = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/materials/${id}`, {
-          method: 'DELETE',
-        })
-          .then((res) => res.json())
-          .then((data) => {
+        axiosSecure
+          .delete(`/materials/${id}`)
+          .then((response) => {
+            const { data } = response;
             if (data.deletedCount) {
               Swal.fire({
                 title: 'Deleted!',
@@ -50,6 +49,14 @@ const ViewAllMaterials = () => {
               });
               refetch();
             }
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Error!',
+              text: 'Something went wrong while deleting the material.',
+              icon: 'error',
+            });
+            console.error('Error deleting material:', error);
           });
       }
     });
@@ -65,11 +72,8 @@ const ViewAllMaterials = () => {
 
     const materialData = { googleDriveLink, materialImage };
 
-    axios
-      .patch(
-        `${import.meta.env.VITE_API_BASE_URL}/materials/${updateId}`,
-        materialData
-      )
+    axiosSecure
+      .patch(`/materials/${updateId}`, materialData)
       .then((response) => {
         console.log(response.data);
         document.getElementById('update').close();
@@ -119,7 +123,7 @@ const ViewAllMaterials = () => {
           </div>
         ) : (
           // Session cards
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {materials.map((material) => (
               <div
                 key={material._id}

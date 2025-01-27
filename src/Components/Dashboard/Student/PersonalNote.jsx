@@ -34,7 +34,7 @@ const PersonalNote = () => {
     const updateData = { noteTitle: title, noteDescription: description };
 
     // update data send to server
-    axios
+    axiosSecure
       .patch(
         `${import.meta.env.VITE_API_BASE_URL}/notes/${updateId}`,
         updateData
@@ -62,11 +62,10 @@ const PersonalNote = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/notes/${id}`, {
-          method: 'DELETE',
-        })
-          .then((res) => res.json())
-          .then((data) => {
+        axiosSecure
+          .delete(`/notes/${id}`)
+          .then((response) => {
+            const data = response.data;
             if (data.deletedCount) {
               Swal.fire({
                 title: 'Deleted!',
@@ -75,6 +74,14 @@ const PersonalNote = () => {
               });
               refetch();
             }
+          })
+          .catch((error) => {
+            console.error('Error deleting the note:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to delete the note. Please try again later.',
+              icon: 'error',
+            });
           });
       }
     });

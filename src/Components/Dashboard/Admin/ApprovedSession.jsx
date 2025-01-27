@@ -2,9 +2,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const ApprovedSession = ({ approvedSession, refetch }) => {
   const [selectedSession, setSelectSessions] = useState([]);
+  const axiosSecure = useAxiosSecure()
   const [updateId, setUpdateId] = useState(null);
   const handleDelete = (id) => {
     Swal.fire({
@@ -17,11 +19,10 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/session/${id}`, {
-          method: 'DELETE',
-        })
-          .then((res) => res.json())
-          .then((data) => {
+        axiosSecure
+          .delete(`/session/${id}`)
+          .then((response) => {
+            const { data } = response;
             if (data.deletedCount) {
               Swal.fire({
                 title: 'Deleted!',
@@ -30,11 +31,18 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
               });
               refetch();
             }
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Error!',
+              text: 'Something went wrong while deleting the session.',
+              icon: 'error',
+            });
+            console.error('Error deleting session:', error);
           });
       }
     });
   };
-
   // update a session
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -42,9 +50,9 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
     const updateData = { status: status };
 
     // update data send to server
-    axios
+    axiosSecure
       .patch(
-        `${import.meta.env.VITE_API_BASE_URL}/session/${updateId}`,
+        `/session/${updateId}`,
         updateData
       )
       .then((response) => {

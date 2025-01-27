@@ -107,6 +107,7 @@ const CreateStudySession = () => {
                   <input
                     type="text"
                     name="title"
+                    required
                     placeholder="Session Title..."
                     className="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ff3600] focus:border-transparent"
                   />
@@ -147,6 +148,7 @@ const CreateStudySession = () => {
                   <textarea
                     name="description"
                     rows={4}
+                    required
                     placeholder="Describe the session..."
                     className="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ff3600] focus:border-transparent"
                   />
@@ -253,6 +255,7 @@ const CreateStudySession = () => {
                   <input
                     type="file"
                     name="image"
+                    required
                     className="w-full px-4 py-3 border rounded-lg bg-gray-50"
                     accept="image/*"
                   />
