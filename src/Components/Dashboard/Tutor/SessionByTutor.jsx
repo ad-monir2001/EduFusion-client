@@ -3,7 +3,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import SessionCard from '../../Cards/SessionCard';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
-
+import { Helmet } from 'react-helmet-async';
 const SessionByTutor = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -20,6 +20,10 @@ const SessionByTutor = () => {
   });
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | View Study Session</title>
+        
+      </Helmet>
       {/* heading */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-3 text-primary">

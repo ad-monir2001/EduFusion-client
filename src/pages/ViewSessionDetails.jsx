@@ -3,17 +3,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { compareAsc, parse } from 'date-fns';
-import { Calendar } from 'lucide-react';
+import { Calendar, Star } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
-import axios from 'axios';
+import ReactStars from 'react-rating-stars-component';
 import toast from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 const ViewSessionDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [role] = useRole();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const [review, setReview] = useState([]);
+  const [averageRating, setAverageRating] = useState(null);
 
   const {
     data: sessions = [],
@@ -63,6 +66,20 @@ const ViewSessionDetails = () => {
       });
     }
   };
+
+  // rating and reviews
+  const { data: reviews = [], isLoading: isReviewsLoading } = useQuery({
+    queryKey: ['reviews', id],
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/review/${id}`);
+      const totalRatings = data.reduce((total, rev) => total + rev.rating, 0);
+      const averageRatings = data.length > 0 ? totalRatings / data.length : 0;
+      setAverageRating(parseFloat(averageRatings.toFixed(1)));
+      setReview(data);
+      return data;
+    },
+  });
+
   return (
     <div className="flex items-center justify-center my-10 md:my-20">
       {desiredSession.map((session) => (
@@ -83,10 +100,14 @@ const ViewSessionDetails = () => {
                 </span>
               </div>
               <div className="flex items-center space-x-1">
-                <span className="text-yellow-500">★</span>
-                <span className="font-semibold">
-                  5{/* {averageRating.toFixed(1)} */}
-                </span>
+                {averageRating > 0 && (
+                  <p className="font-body">
+                    Average Rating:{' '}
+                    <span className="font-heading text-red-500 font-semibold">
+                      {averageRating}
+                    </span>
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -159,6 +180,46 @@ const ViewSessionDetails = () => {
             >
               Go Back
             </button>
+            <div className="py-6 ">
+              <h1 className="font-heading text-xl text-center">
+                Review of Students
+              </h1>
+              {review.length === 0 && (
+                <p className="font-body text-lg text-red-500 text-center">
+                  No review Provided.
+                </p>
+              )}
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {review.map((rev) => (
+                  <div key={rev._id}>
+                    <div className="max-w-sm mx-auto bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
+                      <div className="flex items-center mb-4">
+                        <div className="flex items-center gap-1 text-yellow-500">
+                          <ReactStars
+                            count={5}
+                            value={rev.rating}
+                            edit={false}
+                            size={24}
+                            isHalf={true}
+                            emptyIcon={<i className="far fa-star"></i>}
+                            halfIcon={<i className="fa fa-star-half-alt"></i>}
+                            fullIcon={<i className="fa fa-star"></i>}
+                            activeColor="#ffd700"
+                          />
+                        </div>
+                      </div>
+                      <p className="text-lg font-semibold text-gray-800 mb-2">
+                        {rev.studentName}
+                      </p>
+                      <p className="text-sm text-gray-500 mb-4">
+                        {rev.studentEmail}
+                      </p>
+                      <p className="text-gray-700">{rev.review}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       ))}

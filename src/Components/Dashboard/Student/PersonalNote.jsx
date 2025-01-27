@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
-import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 
 const PersonalNote = () => {
@@ -96,6 +96,10 @@ const PersonalNote = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Personal Note</title>
+        
+      </Helmet>
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-3 font-heading">
           Manage your Personal Note

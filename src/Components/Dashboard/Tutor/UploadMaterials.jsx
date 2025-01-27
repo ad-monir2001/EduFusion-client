@@ -4,7 +4,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import { useState } from 'react';
 import { imageUpload } from '../../../utils/utils';
-import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 const UploadMaterials = () => {
   const [selectedSession, setSelectedSession] = useState([]);
@@ -36,7 +36,7 @@ const UploadMaterials = () => {
     const image = form.image.files[0];
     const materialImage = await imageUpload(image);
 
-    const materialData = { googleDriveLink, materialImage, sessionId,email };
+    const materialData = { googleDriveLink, materialImage, sessionId, email };
 
     axiosSecure
       .post(`/materials`, materialData)
@@ -60,6 +60,9 @@ const UploadMaterials = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Upload Materials</title>
+      </Helmet>
       {/* heading */}
       <div className="text-center mb-12 ">
         <h1 className="text-4xl font-bold mb-3 text-primary">

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const BookedSessionDetails = () => {
   const params = useParams();
@@ -56,6 +57,9 @@ const BookedSessionDetails = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Session Details</title>
+      </Helmet>
       {desiredSession.map((session) => (
         <div
           key={session._id}

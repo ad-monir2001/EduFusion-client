@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import signInAnimation from '../../public/login.json';
 import { saveUser } from '../utils/utils';
 import { useAuth } from '../hooks/useAuth';
+import { Helmet } from 'react-helmet-async';
 
 import toast from 'react-hot-toast';
 const Login = () => {
@@ -78,6 +79,10 @@ const Login = () => {
   };
   return (
     <div className="lg:w-9/12 px-3 mx-auto my-5 py-10">
+      <Helmet>
+        <title>Login | EduFusion</title>
+        
+      </Helmet>
       <h1 className="font-heading text-center my-3 text-3xl md:text-5xl font-semibold text-[#2C3E50]">
         {' '}
         Login here

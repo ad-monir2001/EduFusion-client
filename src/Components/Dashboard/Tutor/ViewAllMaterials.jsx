@@ -5,7 +5,7 @@ import LoadingSpinner from '../../Shared/LoadingSpinner';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 import { imageUpload } from '../../../utils/utils';
-import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 
 const ViewAllMaterials = () => {
@@ -95,6 +95,9 @@ const ViewAllMaterials = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | View All Materials</title>
+      </Helmet>
       {/* heading */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-3 text-primary">

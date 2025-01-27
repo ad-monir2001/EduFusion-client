@@ -3,6 +3,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const CreateNote = () => {
   const { user } = useAuth();
@@ -33,6 +34,10 @@ const CreateNote = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
+      <Helmet>
+        <title>Dashboard | Create Note</title>
+        
+      </Helmet>
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-3 font-heading">
           Create Your Personal Note

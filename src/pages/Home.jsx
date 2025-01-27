@@ -7,6 +7,7 @@ import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { compareAsc, parse } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const [tutors, setTutors] = useState([]);
@@ -47,6 +48,10 @@ const Home = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Home | EduFusion</title>
+        
+      </Helmet>
       <Navbar></Navbar>
       {/* Banner section */}
       <section>

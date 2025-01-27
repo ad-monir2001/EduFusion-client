@@ -13,12 +13,17 @@ import { MdCloudUpload } from 'react-icons/md';
 import { IoCreateOutline } from 'react-icons/io5';
 import { useAuth } from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
+import { Helmet } from 'react-helmet-async';
 const DashboardLayout = () => {
   const [role] = useRole();
   console.log(role);
   const { logOut } = useAuth();
   return (
     <div className="relative min-h-screen md:flex bg-white">
+      <Helmet>
+        <title>Dashboard</title>
+        
+      </Helmet>
       {/* left side component */}
       <div className="bg-[#ECF0F1] p-8 space-y-3 flex flex-col justify-between">
         <div>

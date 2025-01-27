@@ -7,6 +7,7 @@ import { imageUpload } from '../../../utils/utils';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 const CreateStudySession = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -81,6 +82,10 @@ const CreateStudySession = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Create Study Session</title>
+        
+      </Helmet>
       {/* heading */}
       <div className="text-center">
         <h1 className="font-heading font-semibold text-2xl">
@@ -157,7 +162,7 @@ const CreateStudySession = () => {
                 {/* Dates */}
                 <div className="sm:col-span-1">
                   <label className="block text-sm font-medium text-[#ff3600] mb-2">
-                    Session Start Date
+                    Registration Start Date
                   </label>
                   <DatePicker
                     selected={selectedStartDate}
@@ -170,7 +175,7 @@ const CreateStudySession = () => {
 
                 <div className="sm:col-span-1">
                   <label className="block text-sm font-medium text-[#ff3600] mb-2">
-                    Session End Date
+                    Registration End Date
                   </label>
                   <DatePicker
                     selected={selectedEndDate}
@@ -184,7 +189,7 @@ const CreateStudySession = () => {
                 {/* Times  */}
                 <div className="sm:col-span-1">
                   <label className="block text-sm font-medium text-[#ff3600] mb-2">
-                    Session Start Time
+                    Class Start Time
                   </label>
                   <input
                     type="time"
@@ -196,7 +201,7 @@ const CreateStudySession = () => {
 
                 <div className="sm:col-span-1">
                   <label className="block text-sm font-medium text-[#ff3600] mb-2">
-                    Session End Time
+                    Class End Time
                   </label>
                   <input
                     type="time"

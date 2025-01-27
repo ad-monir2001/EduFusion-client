@@ -3,6 +3,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const AllMaterial = () => {
   const { user } = useAuth();
@@ -58,6 +59,9 @@ const AllMaterial = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | All Materials</title>
+      </Helmet>
       {/* heading */}
       <div className="text-center mb-12">
         <h1 className="text-3xl font-bold mb-3 text-primary font-heading">

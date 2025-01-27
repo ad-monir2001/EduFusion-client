@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useState } from 'react';
-import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 
 const StudyMaterial = () => {
   const [materials, setMaterials] = useState([]);
@@ -53,6 +53,10 @@ const StudyMaterial = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Study Material</title>
+        
+      </Helmet>
       {/*  Heading */}
       <div className="text-center my-3">
         <h1 className="font-heading text-3xl font-semibold">

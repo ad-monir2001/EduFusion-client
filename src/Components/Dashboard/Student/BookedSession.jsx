@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useAuth } from '../../../hooks/useAuth';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const BookedSession = () => {
   const { user } = useAuth();
@@ -20,6 +21,10 @@ const BookedSession = () => {
   });
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | Booked Session</title>
+        
+      </Helmet>
       <div className="text-center my-3">
         <h1 className="font-heading text-3xl font-semibold">
           View your Booked Sessions

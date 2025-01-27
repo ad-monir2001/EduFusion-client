@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import SessionTable from './SessionTable';
 import RejectedSession from './RejectedSession';
 import ApprovedSession from './ApprovedSession';
+import { Helmet } from 'react-helmet-async';
 const AllStudySession = () => {
   const axiosSecure = useAxiosSecure();
   const {
@@ -28,6 +29,10 @@ const AllStudySession = () => {
   );
   return (
     <div>
+      <Helmet>
+        <title>Dashboard | All Study Sessions</title>
+        
+      </Helmet>
       {/* heading */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-3 text-primary">
