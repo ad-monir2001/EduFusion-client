@@ -169,9 +169,9 @@ const ViewAllMaterials = () => {
       <dialog id="update" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
           <h3 className="font-bold text-xl font-heading text-[#ff3600]">
-            Update the session rejected or approved?
+            Update the session Materials
           </h3>
-          <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">
+          <div className=" border p-2 rounded-xl my-2 ">
             {selectMaterials.map((session) => (
               <form
                 key={session._id}
@@ -221,7 +221,7 @@ const ViewAllMaterials = () => {
                     required
                   />
                 </div>
-                <button className="btn btn-success font-heading text-white text-xl">
+                <button className="btn btn-success font-heading text-white md:text-xl">
                   Update Materials
                 </button>
               </form>

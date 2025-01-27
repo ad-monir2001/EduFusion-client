@@ -16,11 +16,11 @@ const Footer = () => {
         Edu<span className="text-[#FF3600]">Fusion</span>
       </Link>
       {/* links */}
-      <div>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
-        <Link to="/privacy">Privacy</Link>
-        <Link to="/terms">Terms</Link>
+      <div className='flex gap-3 font-heading'>
+        <Link to="/">About</Link>
+        <Link to="/">Contact</Link>
+        <Link to="/">Privacy</Link>
+        
       </div>
     </div>
   );

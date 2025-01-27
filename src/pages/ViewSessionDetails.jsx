@@ -12,7 +12,7 @@ const ViewSessionDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [role] = useRole();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     data: sessions = [],
@@ -53,13 +53,13 @@ const ViewSessionDetails = () => {
           console.log(error.response);
           toast.error(`${error.response.data.message}`);
         });
-    }else{
-      navigate('/dashboard/payment',{
-
-        state:{
-          sessionPrice,bookedData
-        }
-      })
+    } else {
+      navigate('/dashboard/payment', {
+        state: {
+          sessionPrice,
+          bookedData,
+        },
+      });
     }
   };
   return (
@@ -129,22 +129,6 @@ const ViewSessionDetails = () => {
               </div>
             </div>
 
-            {/* Reviews Section */}
-            {/* <div className="mt-6">
-            <h3 className="font-semibold text-gray-700 mb-3">Student Reviews</h3>
-            <div className="space-y-3">
-              {reviews.map((review, index) => (
-                <div key={index} className="bg-gray-50 p-3 rounded">
-                  <div className="flex items-center space-x-1 mb-1">
-                    <span className="text-yellow-500">★</span>
-                    <span className="font-semibold">{review.rating}</span>
-                  </div>
-                  <p className="text-gray-600">{review.comment}</p>
-                </div>
-              ))}
-            </div>
-          </div> */}
-
             {/* Action Button */}
             <div className="mt-6">
               {compareAsc(
@@ -168,6 +152,12 @@ const ViewSessionDetails = () => {
                 )
               ) : null}
             </div>
+            <button
+              onClick={() => window.history.back()}
+              className="px-6 font-heading py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors duration-200"
+            >
+              Go Back
+            </button>
           </div>
         </div>
       ))}

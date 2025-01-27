@@ -6,10 +6,12 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useAuth } from '../../hooks/useAuth';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({ sessionPrice, bookedData }) => {
   const [clientSecret, setClientSecrete] = useState('');
   const { user } = useAuth();
+  const navigate = useNavigate()
 
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
@@ -76,6 +78,7 @@ const CheckoutForm = ({ sessionPrice, bookedData }) => {
         .then((res) => {
           console.log(res.data);
           toast.success('Your Session booked Successfully.😊');
+          navigate('/dashboard/booked-session')
         })
         .catch((error) => {
           console.log(error.response);

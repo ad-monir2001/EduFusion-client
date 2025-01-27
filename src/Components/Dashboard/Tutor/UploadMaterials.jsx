@@ -61,11 +61,11 @@ const UploadMaterials = () => {
   return (
     <div>
       {/* heading */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-12 ">
         <h1 className="text-4xl font-bold mb-3 text-primary">
           Upload Study Materials with Ease
         </h1>
-        <p className="text-lg text-gray-600 italic">
+        <p className="text-lg mx-auto text-gray-600 italic lg:w-2/3">
           Share valuable resources and enhance collaborative learning. Upload
           notes, presentations, and more to empower every student in the
           community." Let me know if you'd like alternative suggestions!
@@ -122,9 +122,9 @@ const UploadMaterials = () => {
       <dialog id="conform" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
           <h3 className="font-bold text-xl font-heading text-[#ff3600]">
-            Upload Material
+            Upload Materials
           </h3>
-          <div className="flex items-center justify-between border rounded-xl my-2 ">
+          <div className="border rounded-xl my-2 ">
             {selectedSession.map((session) => (
               <form
                 key={session._id}
@@ -132,7 +132,7 @@ const UploadMaterials = () => {
                 className="card-body"
               >
                 {/* session details */}
-                <div className="space-y-2 text-center">
+                <div className="space-y-2">
                   <p className="font-heading">
                     Session Name:{' '}
                     <span className="text-green-400">{session.title}</span>{' '}

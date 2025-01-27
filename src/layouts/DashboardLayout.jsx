@@ -255,7 +255,7 @@ const DashboardLayout = () => {
         </div>
       </div>
       {/* Right side component */}
-      <div className="flex-1 md:ml-20">
+      <div className="flex-1 md:ml-2">
         <div className="p-4">
           <Outlet></Outlet>
         </div>

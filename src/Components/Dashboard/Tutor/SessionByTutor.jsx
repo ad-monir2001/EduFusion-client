@@ -36,7 +36,7 @@ const SessionByTutor = () => {
           <LoadingSpinner></LoadingSpinner>
         </div>
       ) : sessions.length === 0 ? (
-        // Empty state
+     
         <div className="text-center py-12">
           <p className="text-lg text-gray-500">
             No sessions available at the moment.

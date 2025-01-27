@@ -24,18 +24,7 @@ const StudyMaterial = () => {
     },
   });
 
-  //   get materials data
-
-  // const { data: material = [] } = useQuery({
-  //   queryKey: ['materials', sessionid],
-  //   queryFn: async () => {
-  //     const { data } = await axiosSecure(`/material/${sessionid}`);
-  //     setMaterials(material)
-  //     return data;
-  //   },
-  // });
-
-  //   const [materials, setMaterials] = useState([]);
+  //   materials data
 
   const handleShowMaterials = (sessionid) => {
     axios
