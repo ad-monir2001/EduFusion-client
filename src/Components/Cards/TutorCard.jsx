@@ -10,7 +10,7 @@ const TutorCard = ({ tutor }) => {
           alt="Tutor"
           className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-violet-600/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-green-600/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Content */}
@@ -20,12 +20,12 @@ const TutorCard = ({ tutor }) => {
         </h3>
 
         <div className="space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-          <p className="text-violet-600 font-semibold">Tutor</p>
+          <p className=" font-semibold">Tutor</p>
         </div>
       </div>
 
       {/* Bottom Decoration */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-400 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
     </div>
   );
 };

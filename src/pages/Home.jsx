@@ -185,14 +185,89 @@ const Home = () => {
             Learn from the Best, Achieve the Greatest
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-7 p-4">
-          {tutors.map((tutor) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-7 p-4 my-8">
+          {tutors.slice(0, 4).map((tutor) => (
             <TutorCard key={tutor._id} tutor={tutor}></TutorCard>
           ))}
         </div>
+        <Link
+          to="/all-tutor"
+          className="m-8 p-3 outline-2 outline text-[#2ECC71] rounded-lg hover:bg-[#2ECC71] hover:text-white active:scale-95 text-center transition-transform duration-300 font-heading"
+        >
+          View All Tutor
+        </Link>
       </section>
       {/* FAQ */}
-      <section></section>
+      <section className="w-11/12 mx-auto my-14">
+        {/* heading */}
+        <div className="text-center py-10">
+          <p className="font-body italic text-gray-500">
+            Drive Your Questions Away – Everything You Need to Know!
+          </p>
+          <h1 className="font-heading font-semibold text-3xl">
+            Frequently Asked Question
+          </h1>
+        </div>
+        <div className="flex items-center flex-col md:flex-row gap-4 md:gap-14">
+          <div className="w-1/2">
+            <img src="/images/faq.jpg" alt="" />
+          </div>
+          {/* accordion */}
+          <div className="space-y-2 md:w-1/2">
+            <div className="collapse collapse-arrow bg-base-200">
+              <input type="radio" name="my-accordion-2" defaultChecked />
+              <div className="collapse-title text-xl font-medium font-heading ">
+                What is EduFusion?
+              </div>
+              <div className="collapse-content">
+                <p className="font-body">
+                  {' '}
+                  EduFusion is an online learning platform that offers
+                  expert-led courses, interactive lessons, and resources to help
+                  you master new skills.
+                </p>
+              </div>
+            </div>
+            <div className="collapse collapse-arrow bg-base-200 ">
+              <input type="radio" name="my-accordion-2" />
+              <div className="collapse-title text-xl font-medium font-heading">
+                Are the courses self-paced?
+              </div>
+              <div className="collapse-content">
+                <p className="font-body">
+                  Yes! Our courses are designed for flexibility, allowing you to
+                  learn at your own pace, anytime, anywhere.
+                </p>
+              </div>
+            </div>
+            <div className="collapse collapse-arrow bg-base-200 ">
+              <input type="radio" name="my-accordion-2" />
+              <div className="collapse-title text-xl font-medium font-heading">
+                Do I get a certificate after completing a course?
+              </div>
+              <div className="collapse-content">
+                <p className="font-body">
+                  Yes, you’ll receive a certificate of completion for each
+                  course, which you can showcase on your resume or LinkedIn
+                  profile.
+                </p>
+              </div>
+            </div>
+            <div className="collapse collapse-arrow bg-base-200 ">
+              <input type="radio" name="my-accordion-2" />
+              <div className="collapse-title text-xl font-medium font-heading">
+                Are there free courses available?
+              </div>
+              <div className="collapse-content">
+                <p className="font-body">
+                  Yes! We offer both free and premium courses to make quality
+                  education accessible to everyone.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* News letter */}
       <NewsletterSubscription></NewsletterSubscription>
       {/* Footer section */}
