@@ -11,6 +11,8 @@ import { Helmet } from 'react-helmet-async';
 import FeatureCards from '../Components/Cards/FeatureCards';
 import NewsletterSubscription from '../Components/NewsletterSubscription';
 import LoadingSpinner from '../Components/Shared/LoadingSpinner';
+import About from '../Components/About';
+import BlogSection from '../Components/BlogSection';
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const [tutors, setTutors] = useState([]);
@@ -81,7 +83,9 @@ const Home = () => {
       </section>
 
       {/* About us */}
-      <section></section>
+      <section className="w-11/12 mx-auto my-12">
+        <About></About>
+      </section>
 
       {/* Study session section */}
       <section className="w-11/12 mx-auto ">
@@ -197,6 +201,10 @@ const Home = () => {
           View All Tutor
         </Link>
       </section>
+      {/* Blog section */}
+      <section>
+        <BlogSection></BlogSection>
+      </section>
       {/* FAQ */}
       <section className="w-11/12 mx-auto my-14">
         {/* heading */}
@@ -268,6 +276,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       {/* News letter */}
       <NewsletterSubscription></NewsletterSubscription>
       {/* Footer section */}
