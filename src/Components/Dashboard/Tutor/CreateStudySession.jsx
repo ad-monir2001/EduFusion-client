@@ -17,7 +17,7 @@ const CreateStudySession = () => {
   const [endTime, setEndTime] = useState('');
   const [difference, setDifference] = useState('');
   const axiosSecure = useAxiosSecure();
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const calculateDifference = () => {
       const [startHours, startMinutes] = startTime.split(':').map(Number);
@@ -73,18 +73,21 @@ const CreateStudySession = () => {
     };
 
     try {
+      setLoading(true);
       await axiosSecure.post('/session', sessionData);
       toast.success('Your session created Successfully!');
       navigate('/dashboard/view-study-session');
     } catch (error) {
-      console.log('error from add new session', error.message);
+      toast.error(error.response?.data?.message || 'Failed to create session');
+      console.error('Error creating session:', error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <div>
       <Helmet>
         <title>Dashboard | Create Study Session</title>
-        
       </Helmet>
       {/* heading */}
       <div className="text-center">
@@ -271,9 +274,36 @@ const CreateStudySession = () => {
               <div className="flex justify-center pt-6">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-8 py-3 bg-[#ff3600] text-white rounded-lg hover:bg-[#e63100] transition-colors duration-200 text-lg font-medium"
+                  disabled={loading}
+                  className={`w-full sm:w-auto px-8 py-3 bg-[#ff3600] text-white rounded-lg transition-colors duration-200 text-lg font-medium ${
+                    loading
+                      ? 'opacity-70 cursor-not-allowed'
+                      : 'hover:bg-[#e63100]'
+                  }`}
                 >
-                  Create Study Session
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Creating Session...
+                    </span>
+                  ) : (
+                    'Create Study Session'
+                  )}
                 </button>
               </div>
             </form>

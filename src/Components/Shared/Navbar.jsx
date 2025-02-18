@@ -23,6 +23,11 @@ const Navbar = () => {
               All Session
             </NavLink>
           </li>
+          <li>
+            <NavLink className="font-heading text-base" to="/all-tutor">
+              All Tutor
+            </NavLink>
+          </li>
         </>
       )}
       {!user ? (
