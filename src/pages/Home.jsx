@@ -9,6 +9,7 @@ import { compareAsc, parse } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import FeatureCards from '../Components/Cards/FeatureCards';
+import NewsletterSubscription from '../Components/NewsletterSubscription';
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const [tutors, setTutors] = useState([]);
@@ -65,7 +66,7 @@ const Home = () => {
         </div>
       </section>
       {/* motives */}
-      <section>
+      <section className="my-12">
         {/* heading */}
         <div className="text-center py-6 md:py-12">
           <h1 className="font-heading text-xl md:text-3xl font-semibold text-[#2C3E50]">
@@ -81,7 +82,7 @@ const Home = () => {
         </div>
       </section>
       {/* Study session section */}
-      <section className="w-11/12 mx-auto">
+      <section className="w-11/12 mx-auto ">
         {/* heading */}
         <div className="text-center py-6 md:py-12">
           <h1 className="font-heading text-xl md:text-3xl font-semibold text-[#2C3E50]">
@@ -174,7 +175,7 @@ const Home = () => {
         </div>
       </section>
       {/* Tutor section */}
-      <section className="w-11/12 mx-auto">
+      <section className="w-11/12 mx-auto my-12">
         {/* heading */}
         <div className="text-center py-6 md:py-12">
           <h1 className="font-heading text-xl md:text-3xl font-semibold text-[#2C3E50]">
@@ -190,6 +191,8 @@ const Home = () => {
           ))}
         </div>
       </section>
+      {/* News letter */}
+      <NewsletterSubscription></NewsletterSubscription>
       {/* Footer section */}
       <Footer></Footer>
     </div>
