@@ -176,7 +176,7 @@ const ViewSessionDetails = () => {
             </div>
             <button
               onClick={() => window.history.back()}
-              className="px-6 font-heading py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors duration-200"
+              className="px-6 font-heading py-2 bg-[#2ECC71] text-white rounded-lg transition-colors duration-200"
             >
               Go Back
             </button>

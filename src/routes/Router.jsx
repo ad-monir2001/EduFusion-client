@@ -26,6 +26,7 @@ import TutorRoute from './TutorRoute';
 import ViewSessionDetails from '../pages/ViewSessionDetails';
 import Payment from '../Components/Dashboard/Student/Payment';
 import BookedSessionDetails from '../Components/Dashboard/Student/BookedSessionDetails';
+import AllSessions from '../pages/AllSessions';
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
+      },
+      {
+        path: '/all-session',
+        element: <PrivateRoutes><AllSessions></AllSessions></PrivateRoutes>
       },
       {
         path: '/read-more/:id',

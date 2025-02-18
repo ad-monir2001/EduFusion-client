@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import FeatureCards from '../Components/Cards/FeatureCards';
 import NewsletterSubscription from '../Components/NewsletterSubscription';
+import LoadingSpinner from '../Components/Shared/LoadingSpinner';
 const Home = () => {
   const axiosSecure = useAxiosSecure();
   const [tutors, setTutors] = useState([]);
@@ -40,9 +41,6 @@ const Home = () => {
     (session) => session.status === 'approved'
   );
 
-  const handleLoadMore = () => {
-    setVisibleSessions((prev) => prev + 6);
-  };
   return (
     <div>
       <Helmet>
@@ -81,6 +79,10 @@ const Home = () => {
           <FeatureCards></FeatureCards>
         </div>
       </section>
+
+      {/* About us */}
+      <section></section>
+
       {/* Study session section */}
       <section className="w-11/12 mx-auto ">
         {/* heading */}
@@ -92,7 +94,8 @@ const Home = () => {
             Empowering Collaboration, One Session at a Time
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mb-8">
+          {isLoading && <LoadingSpinner></LoadingSpinner>}
           {approvedSessions.slice(0, visibleSessions).map((session) => (
             <div
               key={session._id}
@@ -163,16 +166,13 @@ const Home = () => {
               </div>
             </div>
           ))}
-
-          {visibleSessions < approvedSessions.length && (
-            <button
-              onClick={handleLoadMore}
-              className="mt-4 px-3 py-2 bg-[#2ECC71] text-white rounded-lg hover:bg-[#3498DB] active:scale-95 transition-transform duration-300 font-heading"
-            >
-              Load More
-            </button>
-          )}
         </div>
+        <Link
+          to="/all-session"
+          className="m-8 p-3 outline-2 outline text-[#2ECC71] rounded-lg hover:bg-[#2ECC71] hover:text-white active:scale-95 text-center transition-transform duration-300 font-heading"
+        >
+          View More Sessions
+        </Link>
       </section>
       {/* Tutor section */}
       <section className="w-11/12 mx-auto my-12">
@@ -191,6 +191,8 @@ const Home = () => {
           ))}
         </div>
       </section>
+      {/* FAQ */}
+      <section></section>
       {/* News letter */}
       <NewsletterSubscription></NewsletterSubscription>
       {/* Footer section */}
