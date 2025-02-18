@@ -5,27 +5,32 @@ import { useAuth } from '../../hooks/useAuth';
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const links = (
-    <div className="flex gap-2 lg:flex-row flex-col">
+    <div className="flex lg:flex-row flex-col">
       <li>
-        <NavLink className="font-heading text-base" to="/">
+        <NavLink className="font-heading font-semibold" to="/">
           Home
         </NavLink>
       </li>
       {user && (
         <>
           <li>
-            <NavLink className="font-heading text-base" to="/dashboard">
+            <NavLink className="font-heading font-semibold" to="/dashboard">
               Dashboard
             </NavLink>
           </li>
           <li>
-            <NavLink className="font-heading text-base" to="/all-session">
+            <NavLink className="font-heading font-semibold" to="/all-session">
               All Session
             </NavLink>
           </li>
           <li>
-            <NavLink className="font-heading text-base" to="/all-tutor">
+            <NavLink className="font-heading font-semibold" to="/all-tutor">
               All Tutor
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="font-heading font-semibold" to="/all-tutor">
+              All reviews
             </NavLink>
           </li>
         </>
@@ -86,22 +91,24 @@ const Navbar = () => {
             </ul>
           </div>
           {/* logo */}
-          <Link
-            className="flex items-center  font-heading md:text-3xl text-lg font-semibold text-[#EECF75]"
-            to="/"
-          >
-            <img
-              className="md:w-20 w-8 mr-1 rounded-lg"
-              src="/logo.png"
-              alt=""
-            />
-            Edu<span className="text-[#FF3600]">Fusion</span>
-          </Link>
+          <div>
+            <Link
+              className="flex items-center  font-heading md:text-2xl text-lg font-semibold text-[#EECF75]"
+              to="/"
+            >
+              <img
+                className="md:w-20 w-8 mr-1 rounded-lg"
+                src="/logo.png"
+                alt=""
+              />
+              Edu<span className="text-[#FF3600]">Fusion</span>
+            </Link>
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <div className="navbar-end ">
+        <div className="navbar-end">
           {!user ? (
             <div className="hidden md:flex gap-2">
               <NavLink
