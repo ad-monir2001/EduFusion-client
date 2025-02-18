@@ -21,9 +21,6 @@ const Login = () => {
   const location = useLocation();
   const from = location?.state?.from.pathname || '/';
   if (user) return <Navigate to={from} replace={true} />;
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,7 +85,7 @@ const Login = () => {
         Login here
       </h1>
       <button
-        onClick={handleBack}
+        onClick={() => (window.location.href = '/')}
         className="text-xl flex items-center text-error"
       >
         <IoMdArrowBack />
