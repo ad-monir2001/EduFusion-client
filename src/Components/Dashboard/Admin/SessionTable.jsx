@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import toast from 'react-hot-toast';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 const SessionTable = ({ pendingSession, refetch }) => {
@@ -226,7 +226,7 @@ const SessionTable = ({ pendingSession, refetch }) => {
       {/* show the conformation modal */}
       <dialog id="conform" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+          <h3 className="font-bold text-xl font-heading text-[#2ECC71]">
             Update the session rejected or approved?
           </h3>
           <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">
@@ -272,7 +272,7 @@ const SessionTable = ({ pendingSession, refetch }) => {
       {/* show the conformation modal for rejection  */}
       <dialog id="reject" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+          <h3 className="font-bold text-xl font-heading text-[#2ECC71]">
             Update the session rejected or approved?
           </h3>
           <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">

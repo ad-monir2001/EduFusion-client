@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '../../../hooks/useAuth';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const StudyMaterial = () => {
   const [materials, setMaterials] = useState([]);
@@ -103,7 +103,7 @@ const StudyMaterial = () => {
       {/* show the conformation modal */}
       <dialog id="materials" className="modal modal-middle">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+          <h3 className="font-bold text-xl font-heading text-[#2ECC71]">
             Get Your Materials in This Session
           </h3>
           <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">

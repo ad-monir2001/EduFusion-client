@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useAuth } from '../../../hooks/useAuth';
-import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { imageUpload } from '../../../utils/utils';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { imageUpload } from '../../../utils/utils';
 const CreateStudySession = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -109,7 +109,7 @@ const CreateStudySession = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6">
                 {/* Session Title  */}
                 <div className="col-span-full">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Session Title
                   </label>
                   <input
@@ -117,13 +117,13 @@ const CreateStudySession = () => {
                     name="title"
                     required
                     placeholder="Session Title..."
-                    className="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ff3600] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#2ECC71] focus:border-transparent"
                   />
                 </div>
 
                 {/* Tutor Details */}
                 <div className="sm:col-span-2">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Tutor Name
                   </label>
                   <input
@@ -136,7 +136,7 @@ const CreateStudySession = () => {
                 </div>
 
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Tutor Email
                   </label>
                   <input
@@ -150,7 +150,7 @@ const CreateStudySession = () => {
 
                 {/* Session Description  */}
                 <div className="col-span-full">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Session Description
                   </label>
                   <textarea
@@ -158,13 +158,13 @@ const CreateStudySession = () => {
                     rows={4}
                     required
                     placeholder="Describe the session..."
-                    className="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ff3600] focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#2ECC71] focus:border-transparent"
                   />
                 </div>
 
                 {/* Dates */}
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Registration Start Date
                   </label>
                   <DatePicker
@@ -177,7 +177,7 @@ const CreateStudySession = () => {
                 </div>
 
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Registration End Date
                   </label>
                   <DatePicker
@@ -191,7 +191,7 @@ const CreateStudySession = () => {
 
                 {/* Times  */}
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Class Start Time
                   </label>
                   <input
@@ -203,7 +203,7 @@ const CreateStudySession = () => {
                 </div>
 
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Class End Time
                   </label>
                   <input
@@ -215,7 +215,7 @@ const CreateStudySession = () => {
                 </div>
 
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Session Duration
                   </label>
                   <input
@@ -229,7 +229,7 @@ const CreateStudySession = () => {
 
                 {/* Registration Details */}
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Registration Fee
                   </label>
                   <input
@@ -243,7 +243,7 @@ const CreateStudySession = () => {
 
                 {/* Status */}
                 <div className="sm:col-span-1">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Status
                   </label>
                   <input
@@ -257,7 +257,7 @@ const CreateStudySession = () => {
 
                 {/* Session Image */}
                 <div className="col-span-full">
-                  <label className="block text-sm font-medium text-[#ff3600] mb-2">
+                  <label className="block text-sm font-medium text-[#2ECC71] mb-2">
                     Session Image
                   </label>
                   <input
@@ -275,7 +275,7 @@ const CreateStudySession = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full sm:w-auto px-8 py-3 bg-[#ff3600] text-white rounded-lg transition-colors duration-200 text-lg font-medium ${
+                  className={`w-full sm:w-auto px-8 py-3 bg-[#2ECC71] text-white rounded-lg transition-colors duration-200 text-lg font-medium ${
                     loading
                       ? 'opacity-70 cursor-not-allowed'
                       : 'hover:bg-[#e63100]'

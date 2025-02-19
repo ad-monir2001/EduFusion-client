@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '../../../hooks/useAuth';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import LoadingSpinner from '../../Shared/LoadingSpinner';
 import { useState } from 'react';
-import { imageUpload } from '../../../utils/utils';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
+import { useAuth } from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { imageUpload } from '../../../utils/utils';
+import LoadingSpinner from '../../Shared/LoadingSpinner';
 const UploadMaterials = () => {
   const [selectedSession, setSelectedSession] = useState([]);
   const [sessionId, setSessionId] = useState(null);
@@ -124,7 +124,7 @@ const UploadMaterials = () => {
       {/* show the conformation modal */}
       <dialog id="conform" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+          <h3 className="font-bold text-xl font-heading text-[#2ECC71]">
             Upload Materials
           </h3>
           <div className="border rounded-xl my-2 ">

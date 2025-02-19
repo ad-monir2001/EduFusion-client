@@ -22,7 +22,7 @@ const About = () => {
             Grow your knowledge and your opportunities with thought leadership, training and tools.
           </p>
           
-          <button className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-300 font-heading">
+          <button className="px-6 py-3 bg-[#2ECC71] text-white rounded-lg  duration-300 font-heading">
             Explore Learning
           </button>
         </div>

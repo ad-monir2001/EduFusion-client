@@ -21,11 +21,11 @@ const NewsletterSubscription = () => {
           <input
             type="email"
             placeholder="Enter your email address"
-            className="flex-1 px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="flex-1 px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#2ECC71]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-300 flex items-center justify-center gap-2">
+          <button className="px-6 py-3 bg-[#2ECC71] text-white rounded-lg hover:bg-[#15e66c] transition-colors duration-300 flex items-center justify-center gap-2 font-heading">
             <Send size={20} />
             Subscribe Now
           </button>

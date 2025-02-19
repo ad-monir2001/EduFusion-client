@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '../../../hooks/useAuth';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import LoadingSpinner from '../../Shared/LoadingSpinner';
-import Swal from 'sweetalert2';
 import { useState } from 'react';
-import { imageUpload } from '../../../utils/utils';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
+import { useAuth } from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { imageUpload } from '../../../utils/utils';
+import LoadingSpinner from '../../Shared/LoadingSpinner';
 
 const ViewAllMaterials = () => {
   const [selectMaterials, setSelectMaterial] = useState([]);
@@ -175,7 +175,7 @@ const ViewAllMaterials = () => {
       {/* show the conformation modal for rejection  */}
       <dialog id="update" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+          <h3 className="font-bold text-xl font-heading text-[#2ECC71]">
             Update the session Materials
           </h3>
           <div className=" border p-2 rounded-xl my-2 ">

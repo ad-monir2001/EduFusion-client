@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
@@ -288,7 +287,7 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
       {/* show the conformation modal for rejection  */}
       <dialog id="update" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+          <h3 className="font-bold text-xl font-heading text-[#2ECC71]">
             Update the session rejected or approved?
           </h3>
           <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">

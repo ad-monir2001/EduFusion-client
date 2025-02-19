@@ -1,13 +1,13 @@
-import { FaPencil } from 'react-icons/fa6';
-import { LuTrash2 } from 'react-icons/lu';
-import { useAuth } from '../../../hooks/useAuth';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import LoadingSpinner from '../../Shared/LoadingSpinner';
-import Swal from 'sweetalert2';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
+import { FaPencil } from 'react-icons/fa6';
+import { LuTrash2 } from 'react-icons/lu';
+import Swal from 'sweetalert2';
+import { useAuth } from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import LoadingSpinner from '../../Shared/LoadingSpinner';
 
 const PersonalNote = () => {
   const { user } = useAuth();
@@ -167,7 +167,7 @@ const PersonalNote = () => {
       {/* show the conformation modal */}
       <dialog id="conform" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl font-heading text-[#ff3600]">
+          <h3 className="font-bold text-xl font-heading text-[#2ECC71]">
             Update the session rejected or approved?
           </h3>
           <div className="flex items-center justify-between border p-2 rounded-xl my-2 ">

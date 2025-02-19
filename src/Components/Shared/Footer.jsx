@@ -6,14 +6,14 @@ const Footer = () => {
       <p>
         Copyright © {new Date().getFullYear()} All Rights Reserved by{' '}
         <span className="text-[#eecf75]">Edu</span>
-        <span className="text-[#ff3600]">Fusion</span>
+        <span className="text-[#2ECC71]">Fusion</span>
       </p>
       <Link
         className="flex items-center  font-heading md:text-2xl text-lg font-semibold text-[#EECF75]"
         to="/"
       >
         <img className="md:w-14 w-8 mr-1 rounded-lg" src="/logo.png" alt="" />
-        Edu<span className="text-[#FF3600]">Fusion</span>
+        Edu<span className="text-[#2ECC71]">Fusion</span>
       </Link>
       {/* links */}
       <div className='flex gap-3 font-heading'>

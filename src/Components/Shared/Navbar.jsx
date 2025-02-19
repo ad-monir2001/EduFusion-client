@@ -7,9 +7,17 @@ const Navbar = () => {
   const links = (
     <div className="flex lg:flex-row flex-col">
       <li>
-        <NavLink className="font-heading font-semibold" to="/">
+        <NavLink
+          className={({ isActive }) =>
+            `font-heading font-semibold  ${
+              isActive ? 'bg-[#2ECC71] text-white' : 'bg-transparent'
+            }`
+          }
+          to="/"
+        >
           Home
         </NavLink>
+        ;
       </li>
       {user && (
         <>
@@ -19,18 +27,39 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className="font-heading font-semibold" to="/all-session">
+            <NavLink
+              className={({ isActive }) =>
+                `font-heading font-semibold  ${
+                  isActive ? 'bg-[#2ECC71] text-white' : ''
+                }`
+              }
+              to="/all-session"
+            >
               All Session
             </NavLink>
           </li>
           <li>
-            <NavLink className="font-heading font-semibold" to="/all-tutor">
+            <NavLink
+              className={({ isActive }) =>
+                `font-heading font-semibold  ${
+                  isActive ? 'bg-[#2ECC71] text-white' : 'bg-transparent'
+                }`
+              }
+              to="/all-tutor"
+            >
               All Tutor
             </NavLink>
           </li>
           <li>
-            <NavLink className="font-heading font-semibold" to="/all-tutor">
-              All reviews
+            <NavLink
+              className={({ isActive }) =>
+                `font-heading font-semibold  ${
+                  isActive ? 'bg-[#2ECC71] text-white' : 'bg-transparent'
+                }`
+              }
+              to="/all-review"
+            >
+              About Us
             </NavLink>
           </li>
         </>
@@ -38,13 +67,13 @@ const Navbar = () => {
       {!user ? (
         <div className="flex gap-2 flex-col md:hidden">
           <NavLink
-            className="font-heading text-[#3498DB] border-[#3498DB] text-base font-semibold btn"
+            className="font-heading text-[#2ECC71] border-[#2ECC71] text-base font-semibold btn"
             to="login"
           >
             Log-in
           </NavLink>
           <NavLink
-            className="font-heading text-base bg-[#3498DB] text-white font-semibold btn"
+            className="font-heading text-base bg-[#2ECC71] text-white font-semibold btn"
             to="signUp"
           >
             SignUp
@@ -53,7 +82,7 @@ const Navbar = () => {
       ) : (
         <>
           <button
-            className="font-heading md:hidden text-base bg-[#ff3600] text-white font-semibold btn"
+            className="font-heading md:hidden text-base bg-[#2ECC71] text-white font-semibold btn"
             onClick={logOut}
           >
             logOut
@@ -101,24 +130,24 @@ const Navbar = () => {
                 src="/logo.png"
                 alt=""
               />
-              Edu<span className="text-[#FF3600]">Fusion</span>
+              Edu<span className="text-[#2ECC71]">Fusion</span>
             </Link>
           </div>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+        <div className="navbar-center hidden lg:flex lg:items-center lg:justify-center">
+          <ul className="menu menu-horizontal pt-6">{links}</ul>
         </div>
         <div className="navbar-end">
           {!user ? (
             <div className="hidden md:flex gap-2">
               <NavLink
-                className="font-heading text-[#3498DB] border-[#3498DB] text-base font-semibold btn"
+                className="font-heading text-[#2ECC71] border-[#2ECC71] text-base font-semibold btn"
                 to="login"
               >
                 Log-in
               </NavLink>
               <NavLink
-                className="font-heading text-base bg-[#3498DB] text-white font-semibold btn"
+                className="font-heading text-base bg-[#2ECC71] text-white font-semibold btn"
                 to="signUp"
               >
                 SignUp
@@ -127,7 +156,7 @@ const Navbar = () => {
           ) : (
             <>
               <button
-                className="font-heading hidden md:block text-base bg-[#ff3600] text-white font-semibold btn"
+                className="font-heading hidden md:block text-base bg-[#2ECC71] text-white font-semibold btn"
                 onClick={logOut}
               >
                 logOut
