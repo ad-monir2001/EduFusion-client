@@ -28,6 +28,7 @@ import Payment from '../Components/Dashboard/Student/Payment';
 import BookedSessionDetails from '../Components/Dashboard/Student/BookedSessionDetails';
 import AllSessions from '../pages/AllSessions';
 import AllTutors from '../pages/AllTutors';
+import ContactPage from '../pages/ContactPage';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
+      },
+      {
+        path: '/contact',
+        element: <ContactPage></ContactPage>,
       },
       {
         path: '/all-session',

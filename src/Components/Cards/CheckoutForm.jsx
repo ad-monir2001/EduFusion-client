@@ -1,12 +1,11 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
-import './Checkoutform.css';
 import { useEffect, useState } from 'react';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { useAuth } from '../../hooks/useAuth';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import './Checkoutform.css';
 
 const CheckoutForm = ({ sessionPrice, bookedData }) => {
   const [clientSecret, setClientSecrete] = useState('');
@@ -108,7 +107,7 @@ const CheckoutForm = ({ sessionPrice, bookedData }) => {
       <button
         type="submit"
         disabled={!stripe}
-        className={`px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition ${
+        className={`px-6 py-3 bg-[#2ECC71] text-white font-semibold rounded-lg shadow-md hover:bg-[#2ECC71] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition ${
           !stripe ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >

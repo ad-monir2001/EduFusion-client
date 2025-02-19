@@ -91,7 +91,7 @@ const StudyMaterial = () => {
                   setSessionid(bookedSession.sessionId);
                   handleShowMaterials(bookedSession.sessionId);
                 }}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-heading"
+                className="bg-[#2ECC71] hover:bg-[#2ECC71] text-white px-4 py-2 rounded-md font-heading"
               >
                 View Materials
               </button>
@@ -137,7 +137,7 @@ const StudyMaterial = () => {
                     <div className="mt-4 space-y-2 w-full">
                       <a
                         onClick={() => handleDownload(material.materialImage)}
-                        className="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg text-sm hover:bg-blue-600 transition"
+                        className="block text-center bg-[#2ECC71] text-white py-2 px-4 rounded-lg text-sm hover:bg-[#2ECC71] transition"
                       >
                         Download Image
                       </a>

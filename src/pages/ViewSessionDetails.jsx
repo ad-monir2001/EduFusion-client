@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useNavigate, useParams } from 'react-router-dom';
-import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { compareAsc, parse } from 'date-fns';
-import { Calendar, Star } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
-import useRole from '../hooks/useRole';
-import ReactStars from 'react-rating-stars-component';
+import { Calendar } from 'lucide-react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import ReactStars from 'react-rating-stars-component';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import useRole from '../hooks/useRole';
 const ViewSessionDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -160,7 +160,7 @@ const ViewSessionDetails = () => {
                 role === 'student' ? (
                   <button
                     onClick={() => handleBookSession(session)}
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 font-heading"
+                    className="w-full bg-[#2ECC71] text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 font-heading"
                   >
                     Book Now
                   </button>

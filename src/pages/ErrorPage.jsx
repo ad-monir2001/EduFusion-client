@@ -32,7 +32,7 @@ const ErrorPage = () => {
           </button>
           <button
             onClick={() => (window.location.href = '/')}
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
+            className="px-6 py-2 bg-[#2ECC71] hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
           >
             Home Page
           </button>

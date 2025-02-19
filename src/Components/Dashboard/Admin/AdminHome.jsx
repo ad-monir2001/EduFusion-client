@@ -25,9 +25,10 @@ const AdminHome = () => {
           <h2 className="text-white text-2xl font-bold font-heading">
             {user?.displayName}
           </h2>
-          <p className="text-[#4df74d] font-body uppercase text-lg italic">
-            {role}
+          <p className="text-white font-body">
+            Profile of: <span className='capitalize'>{role}</span>
           </p>
+          <p className="font-body text-white">Email: {user?.email}</p>
         </div>
       </div>
     </div>

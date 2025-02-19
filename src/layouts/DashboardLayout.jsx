@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaUser } from 'react-icons/fa';
 import { LuNotebookPen } from 'react-icons/lu';
 import { IoBookmarksOutline } from 'react-icons/io5';
 import { MdEditNote } from 'react-icons/md';
@@ -40,8 +40,8 @@ const DashboardLayout = () => {
                 }
                 to="/dashboard/admin-home"
               >
-                <RiHomeGearFill />
-                Admin Home
+                <FaUser />
+                Profile
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
@@ -101,8 +101,8 @@ const DashboardLayout = () => {
                 }
                 to="/dashboard/student-home"
               >
-                <FaHome />
-                Student Home
+                <FaUser />
+                Profile
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
@@ -175,8 +175,8 @@ const DashboardLayout = () => {
                 }
                 to="/dashboard/tutor-home"
               >
-                <FaHome />
-                Tutor Home
+                <FaUser />
+                Profile
               </NavLink>
               <NavLink
                 className={({ isActive }) =>

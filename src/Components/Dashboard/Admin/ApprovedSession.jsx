@@ -245,7 +245,7 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
                   className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
                     currentPage === 1
                       ? 'cursor-not-allowed opacity-50'
-                      : 'hover:bg-blue-500 hover:text-white'
+                      : 'hover:bg-[#2ECC71] hover:text-white'
                   }`}
                 >
                   Previous
@@ -257,8 +257,8 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
                       onClick={() => handlePageChange(index + 1)}
                       className={`px-4 py-2 rounded-md ${
                         currentPage === index + 1
-                          ? 'bg-blue-500 text-white'
-                          : 'bg-white text-gray-700 hover:bg-blue-500 hover:text-white'
+                          ? 'bg-[#2ECC71] text-white'
+                          : 'bg-white text-gray-700 hover:bg-[#2ECC71] hover:text-white'
                       }`}
                     >
                       {index + 1}
@@ -274,7 +274,7 @@ const ApprovedSession = ({ approvedSession, refetch }) => {
                   className={`px-4 py-2 text-gray-500 bg-white rounded-md ${
                     currentPage === totalPages
                       ? 'cursor-not-allowed opacity-50'
-                      : 'hover:bg-blue-500 hover:text-white'
+                      : 'hover:bg-[#2ECC71] hover:text-white'
                   }`}
                 >
                   Next

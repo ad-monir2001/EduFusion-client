@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import toast from 'react-hot-toast';
-import { Helmet } from 'react-helmet-async';
 
 const BookedSessionDetails = () => {
   const params = useParams();
@@ -200,7 +200,7 @@ const BookedSessionDetails = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full font-heading bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full font-heading bg-[#2ECC71] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Send Review and Rating
             </button>

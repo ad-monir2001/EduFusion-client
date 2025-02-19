@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useAuth } from '../../../hooks/useAuth';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const BookedSession = () => {
   const { user } = useAuth();
@@ -47,7 +47,7 @@ const BookedSession = () => {
               <p className="text-gray-600 mb-4 line-clamp-2">{bookedSession.description}</p>
               <div className="flex items-center justify-between">
                 <span className="text-orange-500 font-bold text-2xl">${bookedSession.fee}</span>
-                <Link to={`session-details/${bookedSession._id}`} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                <Link to={`session-details/${bookedSession._id}`} className="bg-[#2ECC71] hover:bg-[#2ECC71] text-white px-4 py-2 rounded-md">
                   Read More 
                 </Link>
               </div>

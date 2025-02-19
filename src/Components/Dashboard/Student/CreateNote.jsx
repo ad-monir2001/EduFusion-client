@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { useAuth } from '../../../hooks/useAuth';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { Helmet } from 'react-helmet-async';
 
 const CreateNote = () => {
   const { user } = useAuth();
@@ -106,7 +105,7 @@ const CreateNote = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full font-heading bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="w-full font-heading bg-[#2ECC71] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Create Note
         </button>

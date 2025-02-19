@@ -154,7 +154,7 @@ const ViewAllMaterials = () => {
                   <div className="flex justify-between mt-4">
                     <button
                       onClick={() => openUpdateModal(material._id)}
-                      className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded shadow"
+                      className="bg-[#2ECC71] hover:bg-[#2ECC71] text-white py-1 px-4 rounded shadow"
                     >
                       Update
                     </button>

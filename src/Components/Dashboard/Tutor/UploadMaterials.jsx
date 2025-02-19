@@ -111,7 +111,7 @@ const UploadMaterials = () => {
                 </h3>
                 <button
                   onClick={() => openSessionModal(session._id)}
-                  className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+                  className="mt-4 w-full bg-[#2ECC71] hover:bg-[#2ECC71] text-white font-semibold py-2 px-4 rounded"
                 >
                   Upload Material
                 </button>

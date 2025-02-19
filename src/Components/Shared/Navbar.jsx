@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const links = (
-    <div className="flex lg:flex-row flex-col">
+    <div className="flex lg:flex-row flex-col gap-1">
       <li>
         <NavLink
           className={({ isActive }) =>
@@ -17,7 +17,18 @@ const Navbar = () => {
         >
           Home
         </NavLink>
-        ;
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            `font-heading font-semibold  ${
+              isActive ? 'bg-[#2ECC71] text-white' : 'bg-transparent'
+            }`
+          }
+          to="/contact"
+        >
+          Contact us
+        </NavLink>
       </li>
       {user && (
         <>
@@ -50,31 +61,19 @@ const Navbar = () => {
               All Tutor
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                `font-heading font-semibold  ${
-                  isActive ? 'bg-[#2ECC71] text-white' : 'bg-transparent'
-                }`
-              }
-              to="/all-review"
-            >
-              About Us
-            </NavLink>
-          </li>
         </>
       )}
       {!user ? (
         <div className="flex gap-2 flex-col md:hidden">
           <NavLink
             className="font-heading text-[#2ECC71] border-[#2ECC71] text-base font-semibold btn"
-            to="login"
+            to="/login"
           >
             Log-in
           </NavLink>
           <NavLink
             className="font-heading text-base bg-[#2ECC71] text-white font-semibold btn"
-            to="signUp"
+            to="/signUp"
           >
             SignUp
           </NavLink>
@@ -135,20 +134,20 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex lg:items-center lg:justify-center">
-          <ul className="menu menu-horizontal pt-6">{links}</ul>
+          <ul className="menu menu-horizontal">{links}</ul>
         </div>
         <div className="navbar-end">
           {!user ? (
             <div className="hidden md:flex gap-2">
               <NavLink
                 className="font-heading text-[#2ECC71] border-[#2ECC71] text-base font-semibold btn"
-                to="login"
+                to="/login"
               >
                 Log-in
               </NavLink>
               <NavLink
                 className="font-heading text-base bg-[#2ECC71] text-white font-semibold btn"
-                to="signUp"
+                to="/signUp"
               >
                 SignUp
               </NavLink>
