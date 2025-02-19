@@ -5,7 +5,7 @@ const AdminHome = () => {
   const { user } = useAuth();
   const [role] = useRole();
   return (
-    <div className="w-full bg-violet-500 p-6 rounded-lg relative overflow-hidden">
+    <div className="w-full bg-green-400 p-6 rounded-lg relative overflow-hidden">
       <div className="absolute top-4 right-4 text-violet-400">
         <div className="flex gap-4">
           <div className="w-6 h-6">∿</div>

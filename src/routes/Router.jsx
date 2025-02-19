@@ -29,6 +29,7 @@ import BookedSessionDetails from '../Components/Dashboard/Student/BookedSessionD
 import AllSessions from '../pages/AllSessions';
 import AllTutors from '../pages/AllTutors';
 import ContactPage from '../pages/ContactPage';
+import MissionPage from '../pages/MissionPage';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: '/contact',
         element: <ContactPage></ContactPage>,
+      },
+      {
+        path: '/mission',
+        element: <MissionPage></MissionPage>,
       },
       {
         path: '/all-session',

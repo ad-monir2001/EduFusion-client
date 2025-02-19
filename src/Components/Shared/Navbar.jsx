@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const links = (
-    <div className="flex lg:flex-row flex-col gap-1">
+    <div className="flex lg:flex-row flex-col">
       <li>
         <NavLink
           className={({ isActive }) =>
@@ -25,9 +25,21 @@ const Navbar = () => {
               isActive ? 'bg-[#2ECC71] text-white' : 'bg-transparent'
             }`
           }
+          to="/mission"
+        >
+          Mission
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            `font-heading font-semibold  ${
+              isActive ? 'bg-[#2ECC71] text-white' : 'bg-transparent'
+            }`
+          }
           to="/contact"
         >
-          Contact us
+          Contact
         </NavLink>
       </li>
       {user && (
@@ -46,7 +58,7 @@ const Navbar = () => {
               }
               to="/all-session"
             >
-              All Session
+              Session
             </NavLink>
           </li>
           <li>
@@ -58,7 +70,7 @@ const Navbar = () => {
               }
               to="/all-tutor"
             >
-              All Tutor
+              Tutor
             </NavLink>
           </li>
         </>
@@ -91,8 +103,8 @@ const Navbar = () => {
     </div>
   );
   return (
-    <div className=" sticky bg-white top-0 z-50">
-      <div className="navbar w-11/12 mx-auto">
+    <div className=" sticky bg-white top-0 z-50 border-b shadow-md">
+      <div className="navbar px-8">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
